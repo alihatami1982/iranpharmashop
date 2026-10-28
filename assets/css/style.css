@@ -1,0 +1,17 @@
+body {
+    font-family: Tahoma, Arial, sans-serif;
+    background-color: #f8f9fa;
+}
+
+.product-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.1) !important;
+}
+
+.nav-link:hover {
+    color: #dc3545 !important;
+}
