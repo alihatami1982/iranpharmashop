@@ -1,3 +1,8 @@
+<?php
+// تعریف آدرس پایه سایت
+define('SITE_URL', 'http://localhost/iran/');
+?>
+
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
@@ -9,7 +14,8 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Custom Style -->
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="<?= SITE_URL; ?>assets/css/style.css">
+
 </head>
 <body class="bg-light">
 
