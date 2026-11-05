@@ -1,62 +1,102 @@
 <?php
-// تعریف آدرس پایه سایت
-define('SITE_URL', 'http://localhost/iran/');
-?>
+// داده‌های نمونه؛ در نسخه نهایی می‌توان آن‌ها را از دیتابیس دریافت کرد.
+$categories = [
+    ['name' => 'آرایشی', 'icon' => '💄'],
+    ['name' => 'مراقبت پوست', 'icon' => '🧴'],
+    ['name' => 'مراقبت مو', 'icon' => '🧖'],
+    ['name' => 'عطر و ادکلن', 'icon' => '🌸'],
+    ['name' => 'بهداشت شخصی', 'icon' => '🫧'],
+    ['name' => 'آقایان', 'icon' => '🧔'],
+    ['name' => 'مادر و کودک', 'icon' => '🧸'],
+    ['name' => 'لوازم برقی', 'icon' => '⚡'],
+];
 
-<!DOCTYPE html>
+$products = [
+    ['name' => 'کرم ضد آفتاب SPF 50', 'brand' => 'مراقبت پوست', 'price' => 429000, 'old_price' => 520000, 'discount' => 18, 'rating' => '۴.۸', 'image' => 'uploads/products/1.webp'],
+    ['name' => 'شامپو تقویت‌کننده مو', 'brand' => 'مراقبت مو', 'price' => 285000, 'old_price' => 360000, 'discount' => 21, 'rating' => '۴.۷', 'image' => 'https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=700&q=85'],
+    ['name' => 'کرم مرطوب‌کننده صورت', 'brand' => 'آبرسان و مرطوب‌کننده', 'price' => 335000, 'old_price' => 410000, 'discount' => 18, 'rating' => '۴.۹', 'image' => 'https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=700&q=85'],
+    ['name' => 'رژ لب با ماندگاری بالا', 'brand' => 'آرایش لب', 'price' => 299000, 'old_price' => 390000, 'discount' => 23, 'rating' => '۴.۶', 'image' => 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=700&q=85'],
+];
+
+function toman($price) {
+    return number_format($price, 0, '.', ',') . ' تومان';
+}
+?>
+<!doctype html>
 <html lang="fa" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo isset($page_title) ? $page_title : 'فروشگاه اینترنتی'; ?></title>
-    <!-- Bootstrap 5 RTL CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Custom Style -->
-    <link rel="stylesheet" href="<?= SITE_URL; ?>assets/css/style.css">
-
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ایران | فروشگاه آرایشی و بهداشتی</title>
+    <meta name="description" content="خرید محصولات آرایشی، بهداشتی و مراقبت پوست و مو از ایران">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
 </head>
-<body class="bg-light">
-
-    <!-- Top Bar -->
-    <div class="bg-dark text-white text-center py-2 small">
-        <span>ارسال رایگان برای خریدهای بالای ۵۰۰ هزار تومان</span>
+<body>
+    <div class="topbar">
+        <div class="container d-flex justify-content-center justify-content-lg-between align-items-center flex-wrap gap-2">
+            <span><i class="bi bi-truck"></i> ارسال رایگان سفارش‌های بالای یک میلیون تومان</span>
+            <span class="d-none d-lg-inline"><i class="bi bi-shield-check"></i> ضمانت اصالت کالا</span>
+            <span class="d-none d-lg-inline"><i class="bi bi-arrow-repeat"></i> ۷ روز ضمانت بازگشت کالا</span>
+        </div>
     </div>
 
-<!-- Main Header -->
-<header class="bg-white shadow-sm sticky-top">
-        <div class="container py-3">
-            <div class="row align-items-center">
-                <!-- Logo -->
-                <div class="col-md-3 text-center text-md-start mb-2 mb-md-0">
-                    <a href="#" class="text-decoration-title fs-3 fw-bold text-danger">ایران</a>
-                </div>
-                <!-- Search Bar -->
-                <div class="col-md-6 mb-2 mb-md-0">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="جستجو در محصولات آرایشی، بهداشتی...">
-                        <button class="btn btn-danger px-4" type="button"><i class="fa fa-search"></i></button>
-                    </div>
-                </div>
-                <!-- User Actions -->
-                <div class="col-md-3 text-center text-md-end">
-                    <a href="#" class="btn btn-outline-secondary btn-sm me-2"><i class="fa fa-user me-1"></i> ورود / ثبت‌نام</a>
-                    <a href="#" class="btn btn-danger btn-sm"><i class="fa fa-shopping-cart me-1"></i> سبد خرید</a>
+    <header class="site-header sticky-top">
+        <div class="container">
+            <div class="header-main d-flex align-items-center gap-3">
+                <button class="btn mobile-menu-btn d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu" aria-label="بازکردن منو">
+                    <i class="bi bi-list fs-3"></i>
+                </button>
+
+                <a class="brand" href="#">
+                    <!-- <span class="brand-mark"><i class="bi bi-journal-arrow-down"></i></span> -->
+                    <img src="assets/img/logo.png" style="width: 50px" alt="">
+                    <span><strong>ایران</strong><small>زیبایی، حق شماست</small></span>
+                </a>
+
+                <form class="search-box d-none d-md-flex flex-grow-1" action="#" method="get">
+                    <i class="bi bi-search"></i>
+                    <input type="search" name="q" class="form-control" placeholder="نام محصول، برند یا دسته‌بندی مورد نظر را جستجو کنید...">
+                    <button type="submit" aria-label="جستجو"><i class="bi bi-arrow-left"></i></button>
+                </form>
+
+                <div class="header-actions ms-auto ms-lg-0 d-flex align-items-center gap-3">
+                    <a href="#" class="header-action"><i class="bi bi-person"></i><span class="d-none d-xl-inline">ورود | ثبت‌نام</span></a>
+                    <a href="#" class="header-action"><i class="bi bi-heart"></i><span class="d-none d-xl-inline">علاقه‌مندی</span></a>
+                    <a href="#" class="header-action cart-link"><i class="bi bi-bag"></i><span class="d-none d-xl-inline">سبد خرید</span><b id="cartCount">0</b></a>
                 </div>
             </div>
+
+            <form class="search-box mobile-search d-md-none mb-3" action="#" method="get">
+                <i class="bi bi-search"></i>
+                <input type="search" name="q" class="form-control" placeholder="جستجوی محصولات...">
+                <button type="submit" aria-label="جستجو"><i class="bi bi-arrow-left"></i></button>
+            </form>
+
+            <nav class="main-nav d-none d-lg-flex align-items-center">
+                <a href="#" class="nav-all"><i class="bi bi-list"></i> دسته‌بندی کالاها</a>
+                <?php foreach ($categories as $category): ?>
+                    <a href="#categories"><?= htmlspecialchars($category['name']) ?></a>
+                <?php endforeach; ?>
+                <a href="#offers" class="nav-sale"><i class="bi bi-fire"></i> پیشنهادهای ویژه</a>
+            </nav>
         </div>
-        <!-- Navigation Menu -->
-        <nav class="border-top py-2 d-none d-md-block">
-            <div class="container">
-                <ul class="nav justify-content-start gap-4 fw-medium text-secondary">
-                    <li class="nav-item"><a class="nav-link text-dark" href="#">پیشنهاد شگفت‌انگیز</a></li>
-                    <li class="nav-item"><a class="nav-link text-dark" href="#">مراقبت پوست</a></li>
-                    <li class="nav-item"><a class="nav-link text-dark" href="#">مراقبت مو</a></li>
-                    <li class="nav-item"><a class="nav-link text-dark" href="#">آرایش لب و صورت</a></li>
-                    <li class="nav-item"><a class="nav-link text-dark" href="#">عطر و ادکلن</a></li>
-                    <li class="nav-item"><a class="nav-link text-dark" href="#">مکمل‌های ورزشی</a></li>
-                </ul>
-            </div>
-        </nav>
     </header>
+
+    <!-- منوی موبایل -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="mobileMenu">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title text-green fw-bold">ایران</h5>
+            <button type="button" class="btn-close ms-0" data-bs-dismiss="offcanvas" aria-label="بستن"></button>
+        </div>
+        <div class="offcanvas-body d-flex flex-column gap-3">
+            <?php foreach ($categories as $category): ?>
+                <a href="#categories" class="mobile-nav-link"><?= $category['icon'] ?> <?= htmlspecialchars($category['name']) ?></a>
+            <?php endforeach; ?>
+            <a href="#offers" class="mobile-nav-link text-danger">🔥 پیشنهادهای ویژه</a>
+        </div>
+    </div>
