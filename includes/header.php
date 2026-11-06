@@ -31,9 +31,13 @@ function toman($price) {
     <meta name="description" content="خرید محصولات آرایشی، بهداشتی و مراقبت پوست و مو از ایران">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"> -->
+
+    <!-- Bootstrap RTL CSS -->
+    <link href="assets/css/bootstrap.rtl.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons (کتابخانه آیکون‌ها) -->
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.min.css" rel="stylesheet">
     <link href="assets/css/style.css" rel="stylesheet">
 </head>
 <body>
