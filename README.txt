@@ -38,6 +38,17 @@ iran_shop/
 
 
 ------------------------------------------------------------------------
+
+برای یک فروشگاه آرایشی، ما به جداول اصلی زیر نیاز داریم. من لیست اولیه را برایت می‌نویسم:
+
+users: (id, name, email, password, phone, role [admin/customer])
+categories: (id, name, slug, image) -> برای دسته‌بندی مثل “مراقبت از پوست”، “میکاپ” و…
+products: (id, category_id, name, description, price, stock, image, slug)
+orders: (id, user_id, total_price, status [pending, paid, shipped, cancelled], created_at)
+order_items: (id, order_id, product_id, quantity, price) -> برای ذخیره جزئیات هر سفارش.
+
+
+
 ۳. ساختار دیتابیس (MySQL):
 ------------------------------------------------------------------------
 نام دیتابیس پیشنهادی: iran_db
