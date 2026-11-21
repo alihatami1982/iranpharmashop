@@ -19,7 +19,7 @@ include "includes/header.php";
                             <a href="#products" class="btn btn-green">مشاهده محصولات <i class="bi bi-arrow-left"></i></a>
                         </div>
                         <div class="hero-image">
-                            <img src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=1000&q=90" alt="محصولات مراقبت پوست">
+                            <img src="https://rangdoneh.com/wp-content/uploads/2023/02/ujio.jpg" alt="محصولات مراقبت پوست">
                         </div>
                     </div>
                 </div>
@@ -32,7 +32,7 @@ include "includes/header.php";
                             <a href="#products" class="btn btn-green">خرید محصولات <i class="bi bi-arrow-left"></i></a>
                         </div>
                         <div class="hero-image">
-                            <img src="https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?auto=format&fit=crop&w=1000&q=90" alt="محصولات پوستی">
+                            <img src="https://ghasedak.beauty/wp-content/uploads/2024/11/3.jpg?auto=format&fit=crop&w=1000&q=90" alt="محصولات پوستی">
                         </div>
                     </div>
                 </div>
@@ -45,7 +45,7 @@ include "includes/header.php";
                             <a href="#offers" class="btn btn-green">دیدن تخفیف‌ها <i class="bi bi-arrow-left"></i></a>
                         </div>
                         <div class="hero-image">
-                            <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=1000&q=90" alt="محصولات آرایشی">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJ-5j1mpIpGXHkgyu_d2VoQR__RUbjTNdzDZZIwyFyIdiH4U04_6ZuF_A&s=10" alt="محصولات آرایشی">
                         </div>
                     </div>
                 </div>
@@ -82,9 +82,10 @@ include "includes/header.php";
                 </a>
             </div>
             <div class="col-lg-6">
-                <a href="#products" class="promo promo-light">
+                <!-- <a href="#products" class="promo promo-light"> -->
+                <a href="#products" class="promo" style="background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRizbhZ15DsWxqlmslPsnHN_SuQ1Nv9PhEqzOB5NBt6Zw&s)">
                     <div><span>روتین مراقبت مو</span><h3>با بهترین محصولات</h3><b>مشاهده محصولات <i class="bi bi-arrow-left"></i></b></div>
-                    <img src="uploads/banner/banner1.jpg" alt="مراقبت مو">
+                    <!-- <img src="uploads/banner/banner1.jpg" alt="مراقبت مو"> -->
                 </a>
             </div>
         </div>
@@ -124,9 +125,9 @@ include "includes/header.php";
     <section class="container section-space">
         <div class="section-heading"><div><h2>مجله و مقالات زیبایی</h2><p>نکته‌ها و راهنماهای کاربردی برای مراقبت بهتر</p></div><a href="#">همه مقالات <i class="bi bi-arrow-left"></i></a></div>
         <div class="row g-3">
-            <div class="col-md-4"><a class="article-card" href="#"><img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=700&q=85" alt="مراقبت پوست"><div><small>مراقبت پوست</small><h3>چطور روتین مراقبت پوست مناسب خودمان را انتخاب کنیم؟</h3><span>مطالعه مقاله <i class="bi bi-arrow-left"></i></span></div></a></div>
-            <div class="col-md-4"><a class="article-card" href="#"><img src="https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?auto=format&fit=crop&w=700&q=85" alt="مراقبت مو"><div><small>مراقبت مو</small><h3>راز موهای سالم و درخشان چیست؟</h3><span>مطالعه مقاله <i class="bi bi-arrow-left"></i></span></div></a></div>
-            <div class="col-md-4"><a class="article-card" href="#"><img src="https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=700&q=85" alt="زیبایی"><div><small>راهنمای خرید</small><h3>۱۰ نکته مهم برای خرید محصولات آرایشی</h3><span>مطالعه مقاله <i class="bi bi-arrow-left"></i></span></div></a></div>
+            <div class="col-md-4"><a class="article-card" href="#"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJ-5j1mpIpGXHkgyu_d2VoQR__RUbjTNdzDZZIwyFyIdiH4U04_6ZuF_A&s=10" alt="مراقبت پوست"><div><small>مراقبت پوست</small><h3>چطور روتین مراقبت پوست مناسب خودمان را انتخاب کنیم؟</h3><span>مطالعه مقاله <i class="bi bi-arrow-left"></i></span></div></a></div>
+            <div class="col-md-4"><a class="article-card" href="#"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfplu8PzlhQ2dKZ0hiqZCNhGKXGeEV_TUsTF4u42TvzZVADEvQS04HkglK&s=10" alt="مراقبت مو"><div><small>مراقبت مو</small><h3>راز موهای سالم و درخشان چیست؟</h3><span>مطالعه مقاله <i class="bi bi-arrow-left"></i></span></div></a></div>
+            <div class="col-md-4"><a class="article-card" href="#"><img src="https://behboodmashaghel.com/wp-content/uploads/2025/11/photo_2025-11-09_15-26-31-662x1024.jpg" alt="زیبایی"><div><small>راهنمای خرید</small><h3>۱۰ نکته مهم برای خرید محصولات آرایشی</h3><span>مطالعه مقاله <i class="bi bi-arrow-left"></i></span></div></a></div>
         </div>
     </section>
 </main>

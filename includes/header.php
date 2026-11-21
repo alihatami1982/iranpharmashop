@@ -13,9 +13,9 @@ $categories = [
 
 $products = [
     ['name' => 'کرم ضد آفتاب SPF 50', 'brand' => 'مراقبت پوست', 'price' => 429000, 'old_price' => 520000, 'discount' => 18, 'rating' => '۴.۸', 'image' => 'uploads/products/1.webp'],
-    ['name' => 'شامپو تقویت‌کننده مو', 'brand' => 'مراقبت مو', 'price' => 285000, 'old_price' => 360000, 'discount' => 21, 'rating' => '۴.۷', 'image' => 'https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=700&q=85'],
-    ['name' => 'کرم مرطوب‌کننده صورت', 'brand' => 'آبرسان و مرطوب‌کننده', 'price' => 335000, 'old_price' => 410000, 'discount' => 18, 'rating' => '۴.۹', 'image' => 'https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=700&q=85'],
-    ['name' => 'رژ لب با ماندگاری بالا', 'brand' => 'آرایش لب', 'price' => 299000, 'old_price' => 390000, 'discount' => 23, 'rating' => '۴.۶', 'image' => 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=700&q=85'],
+    ['name' => 'شامپو تقویت‌کننده مو', 'brand' => 'مراقبت مو', 'price' => 285000, 'old_price' => 360000, 'discount' => 21, 'rating' => '۴.۷', 'image' => 'https://www.ganjinehsalamat.com/storage/media/2025/10/9eba98a5-7ad9-492b-bd81-49ea9ddcf916_R.webp'],
+    ['name' => 'کرم مرطوب‌کننده صورت', 'brand' => 'آبرسان و مرطوب‌کننده', 'price' => 335000, 'old_price' => 410000, 'discount' => 18, 'rating' => '۴.۹', 'image' => 'https://mahtika.ir/wp-content/uploads/2023/04/%D9%81%DB%8C%DA%A9%D8%B3%D9%BE%D9%84%D8%A7%D8%B3-%D9%85%D8%A7%D9%87%D8%AA%DB%8C%DA%A9-600x600.jpg'],
+    ['name' => 'رژ لب با ماندگاری بالا', 'brand' => 'آرایش لب', 'price' => 299000, 'old_price' => 390000, 'discount' => 23, 'rating' => '۴.۶', 'image' => 'https://bizma.ir/wp-content/uploads/2024/07/%D8%B1%D9%88%D8%BA%D9%86-%D9%85%D9%88.webp'],
 ];
 
 function toman($price) {

@@ -38,7 +38,8 @@ button, input { font-family: inherit; }
 .mobile-nav-link { padding: 9px 0; border-bottom: 1px solid #eee; }
 .hero-slider { border-radius: 22px; overflow: hidden; }
 .hero-slide { min-height: 350px; display: grid; grid-template-columns: 1fr 1fr; align-items: center; padding: 30px 7%; }
-.hero-one { background: linear-gradient(110deg,#e5eddf,#f4f7f0); }
+/* .hero-one { background: linear-gradient(110deg,#e5eddf,#f4f7f0); } */
+.hero-one { background-image: url(https://rangdoneh.com/wp-content/uploads/2023/02/ujio.jpg); }
 .hero-two { background: linear-gradient(110deg,#f1e9e2,#f7f3ed); }
 .hero-three { background: linear-gradient(110deg,#e4eee5,#f2f6ed); }
 .hero-content { position: relative; z-index: 2; }
