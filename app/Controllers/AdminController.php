@@ -20,12 +20,19 @@ class AdminController extends Controller {
     }
 
     // نمایش فرم افزودن محصول
-    public function create() {
-        $this->render('admin/products/create', [
-            'title' => 'افزودن محصول جدید'
-        ]);
-    }
+    // public function create() {
+    //     $this->render('admin/products/create', [
+    //         'title' => 'افزودن محصول جدید'
+    //     ]);
+    // }
 
+
+    public function create() {
+        $data = ['title' => 'افزودن محصول'];
+        // می‌گوییم از لایوت admin استفاده کن
+        $this->render('admin/products/create', $data, 'admin/layouts/admin');
+    }
+    
     // ذخیره محصول ارسالی از فرم
     public function store() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {

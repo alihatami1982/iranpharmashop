@@ -20,7 +20,7 @@
 ۲. ساختار پروژه و فایل‌ها:
 ------------------------------------------------------------------------
 
-iran_shop/
+iran/
 ├── app/                <-- هسته اصلی منطق برنامه
 │   ├── Core/           <-- کلاس‌های پایه (Router, Database, Controller)
 │   ├── Controllers/    <-- کنترلرهای بخش مشتری و ادمین
@@ -29,26 +29,34 @@ iran_shop/
 ├── config/             <-- تنظیمات دیتابیس و ثابت‌ها
 ├── public/             <-- تنها پوشه‌ای که از بیرون در دسترس است
 │   ├── assets/         <-- فایل‌های CSS, JS, Images (قالب‌های آماده شما اینجا می‌آیند)
-│   ├── index.php       <-- نقطه ورود اصلی (Front Controller)
+│   └── index.php       <-- نقطه ورود اصلی (Front Controller)
 ├── views/              <-- فایل‌های HTML/PHP (بخش‌های نمایش)
-│   ├── frontend/       <-- قالب‌های بخش فروشگاه
-│   └── admin/          <-- قالب‌های بخش ادمین که آماده کرده‌ای
+│   │
+│   ├── admin/               <-- قالب‌های مخصوص پنل مدیریت
+│   │   ├── layouts/            <-- قالب‌های اصلی ادمین
+│   │   │   ├── admin_header.php
+│   │   │   └── admin_footer.php         <-- قالب‌های بخش ادمین که آماده کرده‌ای
+│   │   │
+│   │   ├── products/           <-- صفحات مربوط به محصولات ادمین
+│   │   │   ├── create.php
+│   │   │   └── index.php
+│   │   └── dashboard.php
+│   │
+│   ├── frontend/               <-- قالب‌های سایت اصلی (مشتری)
+│   │   ├── layouts/            <-- قالب‌های اصلی سایت
+│   │   │   ├── main_header.php
+│   │   │   └── main_footer.php
+│   │   ├── home.php
+│   │   └── product_details.php
+│   └── errors/                 <-- صفحات خطا (404, 500)
+│       └── 404.php
+│
+│
 ├── vendor/             <-- اگر از Composer استفاده کنی
 └── .htaccess           <-- برای مدیریت URLهای تمیز (مثلاً iran-shop.ir/product/1)
 
 
 ------------------------------------------------------------------------
-
-برای یک فروشگاه آرایشی، ما به جداول اصلی زیر نیاز داریم. من لیست اولیه را برایت می‌نویسم:
-
-users: (id, name, email, password, phone, role [admin/customer])
-categories: (id, name, slug, image) -> برای دسته‌بندی مثل “مراقبت از پوست”، “میکاپ” و…
-products: (id, category_id, name, description, price, stock, image, slug)
-orders: (id, user_id, total_price, status [pending, paid, shipped, cancelled], created_at)
-order_items: (id, order_id, product_id, quantity, price) -> برای ذخیره جزئیات هر سفارش.
-
-
-
 ۳. ساختار دیتابیس (MySQL):
 ------------------------------------------------------------------------
 نام دیتابیس پیشنهادی: iran_db
