@@ -1,10 +1,4 @@
-<IfModule mod_rewrite.c>
-    RewriteEngine On
-
-    # اگر فایل یا پوشه‌ای واقعاً وجود دارد، همان را باز کن
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{REQUEST_FILENAME} !-d
-
-    # در غیر این صورت، همه چیز را به index.php بفرست
-    RewriteRule ^ index.php [L]
-</IfModule>
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]

@@ -19,4 +19,17 @@ class Product {
         $stmt->execute();
         return $stmt->fetchAll();
     }
+
+    // متدی برای درج محصول جدید در دیتابیس
+    public function create($data) {
+        $stmt = $this->db->prepare("INSERT INTO products (name, description, price, image, category) VALUES (:name, :description, :price, :image, :category)");
+        return $stmt->execute([
+            'name' => $data['name'],
+            'description' => $data['description'],
+            'price' => $data['price'],
+            'image' => $data['image'] ?? 'default.jpg', // اگر عکسی نبود پیش‌فرض بگذارد
+            'category' => $data['category']
+        ]);
+    }
+    
 }
