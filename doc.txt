@@ -1,0 +1,160 @@
+بسیار عالی. برای اینکه سیستم MVC تو به درستی کار کند، ما به سه ستون اصلی نیاز داریم:
+1.  **Database**: برای اتصال به MySQL.
+2.  **Controller**: کلاس مادر که تمام کنترلرهای دیگر از آن ارث‌بری می‌کنند.
+3.  **Router**: مغز متفکر سیستم که تشخیص می‌دهد کاربر چه صفحه‌ای را می‌خواهد (مثلاً `/product/5` یا `/admin/dashboard`).
+
+بیا فایل‌ها را یکی‌یکی بسازیم.
+
+### ۱. کلاس دیتابیس (`app/Core/Database.php`)
+این کلاس از الگوی **Singleton** استفاده می‌کند تا در هر بار لود شدن صفحه، فقط یک بار به دیتابیس متصل شویم (برای بهینه‌سازی سرعت).
+
+```php
+<?php
+// app/Core/Database.php
+
+namespace App\Core;
+
+use PDO;
+use PDOException;
+
+class Database {
+    private static $instance = null;
+    private $connection;
+
+    private function __construct() {
+        $config = require __DIR__ . '/../../config/config.php';
+        try {
+            $dsn = "mysql:host={$config['db_host']};dbname={$config['db_name']};charset={$config['db_charset']}";
+            $this->connection = new PDO($dsn, $config['db_user'], $config['db_pass'], [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                PDO::ATTR_EMULATE_PREPARES => false,
+            ]);
+        } catch (PDOException $e) {
+            die("خطا در اتصال به دیتابیس: " . $e->getMessage());
+        }
+    }
+
+    public static function getInstance() {
+        if (self::$instance === null) {
+            self::$instance = new self();
+        }
+        return self::$instance->connection;
+    }
+}
+```
+
+---
+
+### ۲. کلاس کنترلر پایه (`app/Core/Controller.php`)
+همه کنترلرهای تو (مثل `ProductController` یا `AdminController`) از این کلاس ارث‌بری می‌کنند تا بتوانند فایل‌های `view` را فراخوانی کنند.
+
+```php
+<?php
+// app/Core/Controller.php
+
+namespace App\Core;
+
+class Controller {
+    // متدی برای فراخوانی فایل‌های ویو (View)
+    protected function render($view, $data = []) {
+        // استخراج آرایه دیتا برای اینکه در فایل HTML مستقیم استفاده کنی
+        extract($data);
+        
+        // مسیر ویو را مشخص می‌کنیم
+        $viewPath = __DIR__ . '/../../views/' . $view . '.php';
+
+        if (file_exists($viewPath)) {
+            require_once $viewPath;
+        } else {
+            die("خطا: فایل ویو یافت نشد: " . $view);
+        }
+    }
+}
+```
+
+---
+
+### ۳. سیستم مسیریابی ساده (`app/Core/Router.php`)
+در سیستم‌های حرفه‌ای، روتینگ پیچیده است، اما برای شروع، ما یک روت ساده می‌سازیم که آدرس را از URL بگیرد و به کنترلر مربوطه بفرستد.
+
+```php
+<?php
+// app/Core/Router.php
+
+namespace App\Core;
+
+class Router {
+    protected $routes = [];
+
+    public function add($route, $controller, $method) {
+        $this->routes[$route] = [
+            'controller' => $controller,
+            'method' => $method
+        ];
+    }
+
+    public function dispatch($url) {
+        $url = trim($url, '/');
+        if (empty($url)) $url = 'home';
+
+        if (array_key_exists($url, $this->routes)) {
+            $controllerName = $this->routes[$url]['controller'];
+            $methodName = $this->routes[$url]['method'];
+
+            // ساختن نمونه از کنترلر
+            $controller = new $controllerName();
+            $controller->$methodName();
+        } else {
+            echo "<h1>404 - صفحه یافت نشد</h1>";
+        }
+    }
+}
+```
+
+---
+
+### ۴. فایل ورود اصلی (`public/index.php`)
+حالا همه این‌ها را در نقطه شروع به هم متصل می‌کنیم.
+
+```php
+<?php
+// public/index.php
+
+// ۱. فعال‌سازی Autoloading برای کلاس‌های ما
+spl_autoload_register(function ($class) {
+    $prefix = 'App\\';
+    $base_dir = __DIR__ . '/../app/';
+    $len = strlen($prefix);
+    if (strncmp($prefix, $class, $len) !== 0) return;
+    $relative_class = substr($class, $len);
+    $file = $base_dir . str_replace('\\', '/', $relative_class) . '.php';
+    if (file_exists($file)) require $file;
+});
+
+use App\Core\Router;
+
+// ۲. شروع روتینگ
+$router = new Router();
+
+// ۳. تعریف مسیرها (فعلاً برای تست)
+// اینجا می‌گوییم اگر کاربر زد /home، برو به HomeController متد index
+$router->add('home', \App\Controllers\HomeController::class, 'index');
+
+// ۴. اجرای روتینگ بر اساس آدرس فعلی
+$url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+// اگر پروژه در زیرپوشه است، بخش اضافی URL را حذف کن
+$basePath = '/iran_shop/public/'; 
+$requestUri = str_replace($basePath, '', $url);
+
+$router->dispatch($requestUri);
+```
+
+---
+
+### گام بعدی چیست؟
+تا اینجا "اسکلت" سایت ساخته شد. برای اینکه مطمئن شویم کار می‌کند، باید:
+1.  یک کلاس `HomeController` ساده بسازیم.
+2.  یک فایل ویو در `views/home.php` ایجاد کنیم.
+
+**آیا می‌خواهی این دو مورد را با هم بسازیم تا اولین صفحه سایت "ایران" را روی مرورگر ببینی؟**
