@@ -1,7 +1,7 @@
 <?php
 return [
     'db_host' => 'localhost',
-    'db_name' => 'iran_shop_db',
+    'db_name' => 'iran',
     'db_user' => 'root',
     'db_pass' => '',
     'db_charset' => 'utf8mb4',

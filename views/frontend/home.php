@@ -39,6 +39,32 @@
             </div>
         </div>
         <!-- محصولات دیگر اینجا اضافه می‌شوند -->
+        <!-- در فایل views/frontend/home.php، بخش محصولات را پیدا کن و این را جایگزین کن -->
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">محصولات ما</h2>
+    <div class="row">
+        <?php if (!empty($products)): ?>
+            <?php foreach ($products as $product): ?>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body text-center">
+                            <h5 class="card-title"><?php echo $product['name']; ?></h5>
+                            <p class="card-text text-muted"><?php echo $product['description']; ?></p>
+                            <p class="fw-bold text-primary"><?php echo number_format($product['price']); ?> تومان</p>
+                            <span class="badge bg-secondary"><?php echo $product['category']; ?></span>
+                        </div>
+                        <div class="card-footer bg-transparent border-0">
+                            <button class="btn btn-outline-primary w-100">افزودن به سبد خرید</button>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <p class="text-center">محصولی یافت نشد.</p>
+        <?php endif; ?>
+    </div>
+</div>
+
     </div>
 </div>
 

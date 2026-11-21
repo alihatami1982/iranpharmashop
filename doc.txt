@@ -158,3 +158,140 @@ $router->dispatch($requestUri);
 2.  یک فایل ویو در `views/home.php` ایجاد کنیم.
 
 **آیا می‌خواهی این دو مورد را با هم بسازیم تا اولین صفحه سایت "ایران" را روی مرورگر ببینی؟**
+
+عالیه! انتخاب بسیار خوبی بود. برای ساخت **بخش مدیریت (Admin Panel)**، گام‌به‌گام به این شکل جلو می‌رویم:
+
+1. **طراحی ساختار ادمین:** باید یک کنترلر جدید برای ادمین (`AdminController`) بسازیم تا مدیریت محصولات (افزودن، ویرایش، حذف) را کنترل کند.
+2. **ساخت فرم افزودن محصول**: یک فرم HTML در پوشه `views/admin/` ایجاد می‌کنیم که مدیر بتواند نام، قیمت، دسته‌بندی و توضیحات محصول را وارد کند.
+3. **ذخیره‌سازی در دیتابیس**: متد مربوطه را در مدل `Product` اضافه می‌کنیم تا اطلاعات ارسال شده را در جدول `products` ذخیره کند.
+
+---
+
+### گام اول: افزودن متد `store` به مدل `Product`
+باید به مدل `Product` در مسیر `app/Models/Product.php` قابلیت ذخیره محصول جدید را اضافه کنیم. کد زیر را به کلاس `Product` اضافه کن:
+
+```php
+    // متدی برای درج محصول جدید در دیتابیس
+    public function create($data) {
+        $stmt = $this->db->prepare("INSERT INTO products (name, description, price, image, category) VALUES (:name, :description, :price, :image, :category)");
+        return $stmt->execute([
+            'name' => $data['name'],
+            'description' => $data['description'],
+            'price' => $data['price'],
+            'image' => $data['image'] ?? 'default.jpg', // اگر عکسی نبود پیش‌فرض بگذارد
+            'category' => $data['category']
+        ]);
+    }
+```
+
+---
+
+### گام دوم: ساخت `AdminController`
+یک فایل جدید به نام `AdminController.php` در پوشه `app/Controllers/` بساز و کدهای زیر را درون آن قرار بده:
+
+```php
+<?php
+// app/Controllers/AdminController.php
+
+namespace App\Controllers;
+
+use App\Core\Controller;
+use App\Models\Product;
+
+class AdminController extends Controller {
+
+    // نمایش لیست محصولات در پنل ادمین
+    public function index() {
+        $productModel = new Product();
+        $products = $productModel->getAll();
+
+        $this->render('admin/products/index', [
+            'title' => 'مدیریت محصولات - پنل ادمین',
+            'products' => $products
+        ]);
+    }
+
+    // نمایش فرم افزودن محصول
+    public function create() {
+        $this->render('admin/products/create', [
+            'title' => 'افزودن محصول جدید'
+        ]);
+    }
+
+    // ذخیره محصول ارسالی از فرم
+    public function store() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $data = [
+                'name' => $_POST['name'] ?? '',
+                'description' => $_POST['description'] ?? '',
+                'price' => $_POST['price'] ?? 0,
+                'category' => $_POST['category'] ?? '',
+                'image' => 'default.jpg' // موقتاً عکس پیش‌فرض
+            ];
+
+            $productModel = new Product();
+            $productModel->create($data);
+
+            // بعد از ذخیره، برگرد به لیست محصولات ادمین
+            header('Location: ' . BASE_URL . '/admin/products');
+            exit;
+        }
+    }
+}
+```
+*(نکته: حواست باشد اگر ثابت `BASE_URL` را در تنظیمات پروژه داری استفاده می‌کنی، مسیردهی‌ها بر اساس آن انجام می‌شود، یا می‌توانی روت نسبی بدهی).*
+
+---
+
+### گام سوم: تنظیم روت‌ها در `public/index.php`
+حالا باید مسیرهای (Routes) ادمین را هم به `public/index.php` اضافه کنیم تا درخواست‌ها به `AdminController` هدایت شوند. روت‌های زیر را اضافه کن:
+
+```php
+// روت‌های بخش ادمین
+$router->add('GET', 'admin/products', 'AdminController@index');
+$router->add('GET', 'admin/products/create', 'AdminController@create');
+$router->add('POST', 'admin/products/store', 'AdminController@store');
+```
+
+---
+
+### گام چهارم: ساخت ویوی فرم افزودن محصول (`views/admin/products/create.php`)
+یک پوشه به نام `admin` و درون آن پوشه `products` بساز، و فایل `create.php` را با این کد ایجاد کن:
+
+```php
+<!-- views/admin/products/create.php -->
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">افزودن محصول جدید</h4>
+                </div>
+                <div class="card-body">
+                    <form action="<?php echo BASE_URL; ?>/admin/products/store" method="POST">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">نام محصول</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="category" class="form-label">دسته‌بندی</label>
+                            <input type="text" class="form-control" id="category" name="category">
+                        </div>
+                        <div class="mb-3">
+                            <label for="price" class="form-label">قیمت (تومان)</label>
+                            <input type="number" class="form-control" id="price" name="price" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="description" class="form-label">توضیحات</label>
+                            <textarea class="form-control" id="description" name="description" rows="4"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-success w-100">ذخیره محصول</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+```
+
+این فایل‌ها و تغییرات را در پروژه اعمال کن و بگو هر جا نیاز به بررسی روت یا تست فرم داشتی، چطور پیش رفت!
