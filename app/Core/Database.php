@@ -1,6 +1,4 @@
 <?php
-// app/Core/Database.php
-
 namespace App\Core;
 
 use PDO;
@@ -10,24 +8,40 @@ class Database {
     private static $instance = null;
     private $connection;
 
+    // کانفیگ دیتابیس (اگر در فایل config.php تعریف کردید، از آنجا بخوانید)
+    private $host = 'localhost';
+    private $dbname = 'iran';
+    private $username = 'root';
+    private $password = '';
+
+    // سازنده باید private باشد تا از بیرون ساخته نشود
     private function __construct() {
-        $config = require __DIR__ . '/../../config/config.php';
         try {
-            $dsn = "mysql:host={$config['db_host']};dbname={$config['db_name']};charset={$config['db_charset']}";
-            $this->connection = new PDO($dsn, $config['db_user'], $config['db_pass'], [
-                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-                PDO::ATTR_EMULATE_PREPARES => false,
-            ]);
+            $this->connection = new PDO(
+                "mysql:host={$this->host};dbname={$this->dbname};charset=utf8mb4",
+                $this->username,
+                $this->password
+            );
+            $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
-            die("خطا در اتصال به دیتابیس: " . $e->getMessage());
+            die("Connection Error: " . $e->getMessage());
         }
     }
 
+    // این همان متدی است که در کنترلر صدا زدید
     public static function getInstance() {
         if (self::$instance === null) {
             self::$instance = new self();
         }
-        return self::$instance->connection;
+        return self::$instance;
     }
+
+    // متدی برای گرفتن شیء PDO
+    public function getConnection() {
+        return $this->connection;
+    }
+
+    // جلوگیری از کپی شدن شیء
+    public function __clone() {}
+    public function __wakeup() {}
 }

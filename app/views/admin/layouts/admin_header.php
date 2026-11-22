@@ -10,16 +10,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <?php
-
-define('BASE_URL', 'http://localhost/iran/public');
-
-// require_once '../../../../config/config.php'; // حتما مسیر درست فایل کانفیگ را بدهید
-
-
-?>
-    
-
     <link rel="stylesheet" href="<?= BASE_URL; ?>/assets/css/admin_style.css">
 
 </head>

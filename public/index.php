@@ -1,76 +1,21 @@
 <?php
-// public/index.php
+// جلوگیری از دسترسی مستقیم به فایل‌ها
+define('ROOT_PATH', dirname(__DIR__));
+define('VIEW_PATH', ROOT_PATH . '/app/Views');
 
-// ۱. فعال‌سازی Autoloading برای کلاس‌های ما
-spl_autoload_register(function ($class) {
-    $prefix = 'App\\';
-    $base_dir = __DIR__ . '/../app/';
-    
-    // بررسی اینکه آیا کلاس با پیشوند App شروع می‌شود یا خیر
-    if (strpos($class, $prefix) !== 0) {
-        return;
-    }
+// لود کردن Autoloader تولید شده توسط Composer
+require_once ROOT_PATH . '/vendor/autoload.php';
 
-    $relative_class = substr($class, strlen($prefix));
-    $file = $base_dir . str_replace('\\', '/', $relative_class) . '.php';
-    
-    if (file_exists($file)) {
-        require $file;
-    }
-});
+// لود کردن تنظیمات (ثابت‌ها مثل BASE_URL)
+require_once ROOT_PATH . '/config/config.php';
 
 use App\Core\Router;
 
-// ۲. شروع روتینگ
+// شروع عملیات مسیریابی
 $router = new Router();
 
-// ۳. تعریف مسیرها
-$router->add('home', 'HomeController@index');
-$router->add('admin/products', 'AdminController@index');
-$router->add('admin/products/create', 'AdminController@create');
-$router->add('admin/products/store', 'AdminController@store');
+// در اینجا روت‌ها را فراخوانی می‌کنیم (در مراحل بعد این بخش را از فایل جدا می‌کنیم)
+require_once ROOT_PATH . '/routes/web.php'; 
 
-// ۴. استخراج خودکار و تمیز URI
-// ۴. استخراج خودکار و تمیز URI
-// اولویت اول: اگر پارامتر url در آدرس بود (مثلاً ?url=admin/products/create)
-// اولویت دوم: استفاده از مسیر فیزیکی فایل (URI)
-if (isset($_GET['url'])) {
-    $requestUri = $_GET['url'];
-} else {
-    $requestUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-    $scriptName = dirname($_SERVER['SCRIPT_NAME']); 
-    $requestUri = str_replace($scriptName, '', $requestUri);
-}
-
-// پاکسازی اسلش‌های اضافی از ابتدا و انتها
-$requestUri = trim($requestUri, '/');
-
-// اگر مسیر خالی بود، به home برود
-if (empty($requestUri)) {
-    $requestUri = 'home';
-}
-
-
-// // --- بخش عیب‌یابی (Debug Section) ---
-// echo "<h3 style='color:blue;'>Debug Info:</h3>";
-// echo "<b style='color:red;'>Current Request URI:</b> " . htmlspecialchars($requestUri) . "<br><br>";
-
-// // استفاده از Reflection برای دسترسی به متغیر protected routes
-// try {
-//     $reflection = new ReflectionClass($router);
-//     $property = $reflection->getProperty('routes');
-//     $property->setAccessible(true);
-//     $routes = $property->getValue($router);
-
-//     echo "<b style='color:green;'>Registered Routes in Router:</b><pre>";
-//     print_r($routes);
-//     echo "</pre>";
-// } catch (Exception $e) {
-//     echo "Error accessing routes: " . $e->getMessage();
-// }
-
-// die("<br><hr><b>DEBUG MODE ACTIVE - Check the output above.</b>");
-// ------------------------------------
-
-// اجرای روتینگ (در حالت دیباگ اجرا نمی‌شود)
-$router->dispatch($requestUri);
+// اجرای روتر بر اساس درخواست کاربر
+$router->dispatch($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);

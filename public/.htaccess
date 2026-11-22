@@ -1,8 +1,4 @@
-RewriteEngine On
-
-# اگر درخواست مستقیماً به یک فایل یا پوشه واقعی بود، همان را باز کن
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME} !-f
-
-# در غیر این صورت، همه درخواست‌ها را به index.php بفرست و مسیر را در متغیر url قرار بده
-RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+    RewriteEngine On
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^ index.php [L]

@@ -21,9 +21,22 @@
 ------------------------------------------------------------------------
 
 iran/
-├── app/                <-- هسته اصلی منطق برنامه
-│   ├── Core/           <-- کلاس‌های پایه (Router, Database, Controller)
-│   ├── Controllers/    <-- کنترلرهای بخش مشتری و ادمین
+
+├── app/
+│   ├── Core/               # هسته اصلی سیستم (Router, Database, Controller Base)
+│   │   ├── App.php
+│   │   ├── Controller.php
+│   │   ├── Database.php
+│   │   └── Router.php
+│   │
+│   ├── Controllers/        # کنترلرهای اصلی
+│   │   ├── Admin/          # تمام کنترلرهای پنل مدیریت
+│   │   │   ├── ProductController.php
+│   │   │   └── CategoryController.php
+│   │   └── Frontend/       # تمام کنترلرهای بخش مشتری (Public)
+│   │       ├── HomeController.php
+│   │       └── ProductController.php
+│   │
 │   ├── Models/         <-- مدل‌های دیتابیس (Product, User, Order)
 │   └── Helpers/        <-- توابع کمکی (مثل قالب‌بندی قیمت یا تاریخ)
 ├── config/             <-- تنظیمات دیتابیس و ثابت‌ها
