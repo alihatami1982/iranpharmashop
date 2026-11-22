@@ -5,8 +5,9 @@
 $router->get('/', 'App\Controllers\Frontend\HomeController@index');
 $router->get('/products', 'App\Controllers\Frontend\ProductController@index');
 
-// روت‌های بخش مدیریت (Admin)
+// روت‌های بخش مدیریت/مدیریت دسته ها (Admin/categories)
 $router->get('/admin/categories', 'App\Controllers\Admin\CategoryController@index');
+$router->get('/admin/categories/create', 'App\Controllers\Admin\CategoryController@create'); 
 $router->post('/admin/categories/store', 'App\Controllers\Admin\CategoryController@store');
 $router->get('/admin/categories/delete/{id}', 'App\Controllers\Admin\CategoryController@delete');
 
