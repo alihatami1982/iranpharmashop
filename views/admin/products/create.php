@@ -35,3 +35,1135 @@
 </div>
 
 
+
+
+<header class="topbar"><button class="hamb" onclick="toggleMenu()" aria-label="باز کردن منو">☰</button>
+                <div class="title">
+                    <h1 id="topTitle">داشبورد</h1>
+                    <p id="topSubtitle">نمای کلی فروشگاه شما</p>
+                </div>
+                <div class="search"><span>⌕</span><input placeholder="جستجو در پنل..."></div><button class="icon-btn"
+                    aria-label="اعلان‌ها">♧<i class="dot"></i></button>
+                <div class="user-top">
+                    <div class="avatar">م</div>
+                    <div><b>مدیر فروشگاه</b><small>خوش آمدید</small></div>
+                </div>
+            </header>
+            <section class="page active" id="page-dashboard">
+                <div class="welcome">
+                    <div>
+                        <h2>سلام، روز زیبایی داشته باشید 🌿</h2>
+                        <p>اینجا می‌توانید فروش و عملکرد فروشگاه آرایشی و بهداشتی خود را مدیریت کنید.</p>
+                    </div>
+                    <div class="date">📅 امروز، ۲۸ آبان ۱۴۰۵</div>
+                </div>
+                <div class="stats">
+                    <article class="card stat">
+                        <div class="stat-head">فروش امروز <span class="stat-icon">◈</span></div>
+                        <h3>۲۴,۸۵۰,۰۰۰</h3>
+                        <div class="trend">↗ ۱۲٪ <span>نسبت به دیروز</span></div>
+                    </article>
+                    <article class="card stat">
+                        <div class="stat-head">سفارش‌های جدید <span class="stat-icon">🛍</span></div>
+                        <h3>۴۸</h3>
+                        <div class="trend">↗ ۸٪ <span>نسبت به دیروز</span></div>
+                    </article>
+                    <article class="card stat">
+                        <div class="stat-head">کل محصولات <span class="stat-icon">▣</span></div>
+                        <h3>۱,۲۸۰</h3>
+                        <div class="trend">۲۴ محصول کم‌موجود</div>
+                    </article>
+                    <article class="card stat">
+                        <div class="stat-head">مشتریان فعال <span class="stat-icon">♙</span></div>
+                        <h3>۸,۴۲۰</h3>
+                        <div class="trend">↗ ۵.۴٪ <span>این ماه</span></div>
+                    </article>
+                </div>
+                <div class="grid2">
+                    <article class="card panel">
+                        <div class="panel-head">
+                            <div>
+                                <h3>نمودار فروش</h3><small>مجموع فروش در هفته اخیر</small>
+                            </div><select class="field">
+                                <option>۷ روز اخیر</option>
+                                <option>۳۰ روز اخیر</option>
+                                <option>امسال</option>
+                            </select>
+                        </div>
+                        <div class="chart"><svg viewBox="0 0 620 180" preserveAspectRatio="none">
+                                <defs>
+                                    <linearGradient id="fade" x1="0" x2="0" y1="0" y2="1">
+                                        <stop offset="0" stop-color="#0b8c52" stop-opacity=".2" />
+                                        <stop offset="1" stop-color="#0b8c52" stop-opacity="0" />
+                                    </linearGradient>
+                                </defs>
+                                <path class="gridline" d="M0 25H620 M0 70H620 M0 115H620 M0 160H620" />
+                                <path class="area"
+                                    d="M0 145 C35 135 48 120 85 128 S145 95 175 108 S230 72 265 88 S320 48 355 68 S410 55 445 63 S500 20 535 42 S585 16 620 24 V180 H0Z" />
+                                <path class="line"
+                                    d="M0 145 C35 135 48 120 85 128 S145 95 175 108 S230 72 265 88 S320 48 355 68 S410 55 445 63 S500 20 535 42 S585 16 620 24" />
+                            </svg>
+                            <div class="chart-labels">
+                                <span>شنبه</span><span>یکشنبه</span><span>دوشنبه</span><span>سه‌شنبه</span><span>چهارشنبه</span><span>پنجشنبه</span><span>جمعه</span>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="card panel">
+                        <div class="panel-head">
+                            <h3>وضعیت سفارش‌ها</h3><span class="pill">این ماه</span>
+                        </div>
+                        <div class="progress-list">
+                            <div>
+                                <div class="pr-top"><span>تکمیل‌شده</span><b>۶۸٪</b></div>
+                                <div class="bar"><i style="width:68%"></i></div>
+                            </div>
+                            <div>
+                                <div class="pr-top"><span>در حال پردازش</span><b>۲۱٪</b></div>
+                                <div class="bar"><i style="width:21%"></i></div>
+                            </div>
+                            <div>
+                                <div class="pr-top"><span>در انتظار پرداخت</span><b>۸٪</b></div>
+                                <div class="bar"><i style="width:8%"></i></div>
+                            </div>
+                            <div>
+                                <div class="pr-top"><span>لغوشده</span><b>۳٪</b></div>
+                                <div class="bar"><i style="width:3%;background:#d99b52"></i></div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <div class="card panel table-card">
+                    <div class="panel-head">
+                        <h3>آخرین سفارش‌ها</h3><button class="btn soft small" onclick="go('orders')">مشاهده همه</button>
+                    </div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>مشتری</th>
+                                    <th>شماره سفارش</th>
+                                    <th>مبلغ</th>
+                                    <th>وضعیت</th>
+                                    <th>تاریخ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>نگار احمدی</td>
+                                    <td>#۱۲۸۴</td>
+                                    <td>۲,۴۵۰,۰۰۰ تومان</td>
+                                    <td><span class="status">تکمیل‌شده</span></td>
+                                    <td>امروز</td>
+                                </tr>
+                                <tr>
+                                    <td>سارا محمدی</td>
+                                    <td>#۱۲۸۳</td>
+                                    <td>۱,۸۰۰,۰۰۰ تومان</td>
+                                    <td><span class="status pending">در حال پردازش</span></td>
+                                    <td>امروز</td>
+                                </tr>
+                                <tr>
+                                    <td>مریم حسینی</td>
+                                    <td>#۱۲۸۲</td>
+                                    <td>۳,۲۰۰,۰۰۰ تومان</td>
+                                    <td><span class="status">تکمیل‌شده</span></td>
+                                    <td>دیروز</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            <section class="page" id="page-products">
+                <div class="table-title">
+                    <div>
+                        <h2>مدیریت محصولات</h2>
+                        <p>فهرست کالاهای آرایشی و بهداشتی فروشگاه</p>
+                    </div><button class="btn" onclick="openModal('productModal')">＋ افزودن محصول</button>
+                </div>
+                <div class="toolbar"><input class="field grow" id="productSearch"
+                        placeholder="جستجوی نام محصول یا برند..."
+                        oninput="filterRows('productTable',this.value)"><select class="field">
+                        <option>همه دسته‌ها</option>
+                        <option>مراقبت پوست</option>
+                        <option>آرایش صورت</option>
+                        <option>مراقبت مو</option>
+                    </select><select class="field">
+                        <option>همه وضعیت‌ها</option>
+                        <option>موجود</option>
+                        <option>ناموجود</option>
+                    </select></div>
+                <div class="card panel">
+                    <div class="table-wrap">
+                        <table id="productTable">
+                            <thead>
+                                <tr>
+                                    <th>محصول</th>
+                                    <th>دسته‌بندی</th>
+                                    <th>برند</th>
+                                    <th>قیمت</th>
+                                    <th>موجودی</th>
+                                    <th>وضعیت</th>
+                                    <th>عملیات</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="product-cell"><span class="thumb">🧴</span><b>سرم ویتامین C</b>
+                                        </div>
+                                    </td>
+                                    <td>مراقبت پوست</td>
+                                    <td>لافارر</td>
+                                    <td>۴۸۰,۰۰۰</td>
+                                    <td>۳۲</td>
+                                    <td><span class="status">موجود</span></td>
+                                    <td><button class="btn soft small">ویرایش</button></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="product-cell"><span class="thumb">🧼</span><b>ژل شستشوی صورت</b>
+                                        </div>
+                                    </td>
+                                    <td>پاک‌کننده</td>
+                                    <td>سینره</td>
+                                    <td>۲۱۵,۰۰۰</td>
+                                    <td>۸</td>
+                                    <td><span class="status low">رو به اتمام</span></td>
+                                    <td><button class="btn soft small">ویرایش</button></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="product-cell"><span class="thumb">💄</span><b>رژ لب مات</b></div>
+                                    </td>
+                                    <td>آرایش صورت</td>
+                                    <td>مای</td>
+                                    <td>۳۲۰,۰۰۰</td>
+                                    <td>۵۶</td>
+                                    <td><span class="status">موجود</span></td>
+                                    <td><button class="btn soft small">ویرایش</button></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="product-cell"><span class="thumb">🧴</span><b>ضد آفتاب SPF50</b>
+                                        </div>
+                                    </td>
+                                    <td>مراقبت پوست</td>
+                                    <td>درمالیفت</td>
+                                    <td>۳۹۰,۰۰۰</td>
+                                    <td>۰</td>
+                                    <td><span class="status cancel">ناموجود</span></td>
+                                    <td><button class="btn soft small">ویرایش</button></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="product-cell"><span class="thumb">🧖</span><b>ماسک مو آرگان</b>
+                                        </div>
+                                    </td>
+                                    <td>مراقبت مو</td>
+                                    <td>فولیکا</td>
+                                    <td>۲۷۵,۰۰۰</td>
+                                    <td>۱۹</td>
+                                    <td><span class="status">موجود</span></td>
+                                    <td><button class="btn soft small">ویرایش</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            <section class="page" id="page-categories">
+                <div class="table-title">
+                    <div>
+                        <h2>دسته‌بندی محصولات</h2>
+                        <p>گروه‌بندی محصولات فروشگاه</p>
+                    </div><button class="btn"
+                        onclick="alert('فرم افزودن دسته‌بندی در نسخه متصل به بک‌اند فعال می‌شود.')">＋ دسته‌بندی
+                        جدید</button>
+                </div>
+                <div class="category-grid">
+                    <div class="card category"><span class="thumb">🧴</span>
+                        <div><b>مراقبت پوست</b><small>۲۸۶ محصول</small></div>
+                    </div>
+                    <div class="card category"><span class="thumb">💄</span>
+                        <div><b>لوازم آرایشی</b><small>۳۴۲ محصول</small></div>
+                    </div>
+                    <div class="card category"><span class="thumb">🧖</span>
+                        <div><b>مراقبت مو</b><small>۱۹۸ محصول</small></div>
+                    </div>
+                    <div class="card category"><span class="thumb">🪥</span>
+                        <div><b>بهداشت فردی</b><small>۱۶۴ محصول</small></div>
+                    </div>
+                    <div class="card category"><span class="thumb">🌸</span>
+                        <div><b>عطر و خوشبوکننده</b><small>۱۲۸ محصول</small></div>
+                    </div>
+                    <div class="card category"><span class="thumb">🧼</span>
+                        <div><b>شوینده و پاک‌کننده</b><small>۹۲ محصول</small></div>
+                    </div>
+                    <div class="card category"><span class="thumb">☀️</span>
+                        <div><b>ضد آفتاب</b><small>۴۶ محصول</small></div>
+                    </div>
+                    <div class="card category"><span class="thumb">🎁</span>
+                        <div><b>پک و ست هدیه</b><small>۲۴ محصول</small></div>
+                    </div>
+                </div>
+            </section>
+            <section class="page" id="page-orders">
+                <div class="table-title">
+                    <div>
+                        <h2>مدیریت سفارش‌ها</h2>
+                        <p>پیگیری و پردازش سفارش‌های مشتریان</p>
+                    </div><button class="btn outline" onclick="window.print()">چاپ فهرست</button>
+                </div>
+                <div class="toolbar"><input class="field grow" placeholder="جستجو بر اساس شماره سفارش یا مشتری..."
+                        oninput="filterRows('ordersTable',this.value)"><select class="field">
+                        <option>همه وضعیت‌ها</option>
+                        <option>در انتظار</option>
+                        <option>تکمیل‌شده</option>
+                        <option>لغوشده</option>
+                    </select></div>
+                <div class="card panel">
+                    <div class="table-wrap">
+                        <table id="ordersTable">
+                            <thead>
+                                <tr>
+                                    <th>شماره</th>
+                                    <th>مشتری</th>
+                                    <th>تاریخ</th>
+                                    <th>تعداد کالا</th>
+                                    <th>مبلغ کل</th>
+                                    <th>پرداخت</th>
+                                    <th>وضعیت سفارش</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#۱۲۸۴</td>
+                                    <td>نگار احمدی</td>
+                                    <td>۱۴۰۵/۰۸/۲۸</td>
+                                    <td>۳</td>
+                                    <td>۲,۴۵۰,۰۰۰</td>
+                                    <td><span class="status">پرداخت‌شده</span></td>
+                                    <td><span class="status">تحویل‌شده</span></td>
+                                </tr>
+                                <tr>
+                                    <td>#۱۲۸۳</td>
+                                    <td>سارا محمدی</td>
+                                    <td>۱۴۰۵/۰۸/۲۸</td>
+                                    <td>۲</td>
+                                    <td>۱,۸۰۰,۰۰۰</td>
+                                    <td><span class="status">پرداخت‌شده</span></td>
+                                    <td><span class="status pending">در حال ارسال</span></td>
+                                </tr>
+                                <tr>
+                                    <td>#۱۲۸۲</td>
+                                    <td>مریم حسینی</td>
+                                    <td>۱۴۰۵/۰۸/۲۷</td>
+                                    <td>۵</td>
+                                    <td>۳,۲۰۰,۰۰۰</td>
+                                    <td><span class="status pending">در انتظار</span></td>
+                                    <td><span class="status pending">در انتظار پرداخت</span></td>
+                                </tr>
+                                <tr>
+                                    <td>#۱۲۸۱</td>
+                                    <td>الهام کریمی</td>
+                                    <td>۱۴۰۵/۰۸/۲۷</td>
+                                    <td>۱</td>
+                                    <td>۹۵۰,۰۰۰</td>
+                                    <td><span class="status">پرداخت‌شده</span></td>
+                                    <td><span class="status cancel">لغوشده</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            <section class="page" id="page-customers">
+                <div class="table-title">
+                    <div>
+                        <h2>مشتریان</h2>
+                        <p>مدیریت اطلاعات و سوابق مشتریان</p>
+                    </div><button class="btn outline" onclick="alert('خروجی مشتریان در نسخه متصل فعال می‌شود.')">خروجی
+                        اکسل</button>
+                </div>
+                <div class="toolbar"><input class="field grow" placeholder="جستجوی نام یا شماره تماس..."
+                        oninput="filterRows('customerTable',this.value)"><select class="field">
+                        <option>همه مشتریان</option>
+                        <option>مشتریان وفادار</option>
+                        <option>مشتریان جدید</option>
+                    </select></div>
+                <div class="card panel">
+                    <div class="table-wrap">
+                        <table id="customerTable">
+                            <thead>
+                                <tr>
+                                    <th>نام مشتری</th>
+                                    <th>شماره تماس</th>
+                                    <th>تعداد سفارش</th>
+                                    <th>مجموع خرید</th>
+                                    <th>آخرین خرید</th>
+                                    <th>عضویت</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>نگار احمدی</td>
+                                    <td>۰۹۱۲۱۲۳۴۵۶۷</td>
+                                    <td>۱۲</td>
+                                    <td>۸,۴۵۰,۰۰۰</td>
+                                    <td>امروز</td>
+                                    <td><span class="pill">وفادار</span></td>
+                                </tr>
+                                <tr>
+                                    <td>سارا محمدی</td>
+                                    <td>۰۹۳۵۱۲۳۴۵۶۷</td>
+                                    <td>۵</td>
+                                    <td>۳,۲۰۰,۰۰۰</td>
+                                    <td>امروز</td>
+                                    <td><span class="pill">فعال</span></td>
+                                </tr>
+                                <tr>
+                                    <td>مریم حسینی</td>
+                                    <td>۰۹۱۰۱۲۳۴۵۶۷</td>
+                                    <td>۸</td>
+                                    <td>۵,۷۸۰,۰۰۰</td>
+                                    <td>دیروز</td>
+                                    <td><span class="pill">وفادار</span></td>
+                                </tr>
+                                <tr>
+                                    <td>الهام کریمی</td>
+                                    <td>۰۹۳۶۱۲۳۴۵۶۷</td>
+                                    <td>۱</td>
+                                    <td>۹۵۰,۰۰۰</td>
+                                    <td>۲۵ آبان</td>
+                                    <td><span class="pill">جدید</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            <section class="page" id="page-inventory">
+                <div class="table-title">
+                    <div>
+                        <h2>مدیریت انبار</h2>
+                        <p>کنترل موجودی و کالاهای نیازمند شارژ</p>
+                    </div><button class="btn" onclick="alert('ثبت ورود کالا در نسخه متصل فعال می‌شود.')">＋ ثبت ورود
+                        کالا</button>
+                </div>
+                <div class="stats">
+                    <article class="card stat">
+                        <div class="stat-head">کل اقلام انبار <span class="stat-icon">▣</span></div>
+                        <h3>۱,۲۸۰</h3>
+                        <div class="trend">مجموع محصولات فعال</div>
+                    </article>
+                    <article class="card stat">
+                        <div class="stat-head">موجودی کم <span class="stat-icon">⚠</span></div>
+                        <h3>۲۴</h3>
+                        <div class="trend" style="color:var(--amber)">نیازمند سفارش مجدد</div>
+                    </article>
+                    <article class="card stat">
+                        <div class="stat-head">ناموجود <span class="stat-icon">⊘</span></div>
+                        <h3>۸</h3>
+                        <div class="trend" style="color:var(--red)">اتمام موجودی</div>
+                    </article>
+                    <article class="card stat">
+                        <div class="stat-head">ارزش تقریبی انبار <span class="stat-icon">◈</span></div>
+                        <h3>۸۶۰M</h3>
+                        <div class="trend">تومان</div>
+                    </article>
+                </div>
+                <div class="card panel">
+                    <div class="panel-head">
+                        <h3>هشدار موجودی محصولات</h3><span class="pill">۳ مورد نمونه</span>
+                    </div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>محصول</th>
+                                    <th>کد کالا</th>
+                                    <th>موجودی فعلی</th>
+                                    <th>حداقل موجودی</th>
+                                    <th>وضعیت</th>
+                                    <th>اقدام</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>ژل شستشوی صورت سینره</td>
+                                    <td>CN-204</td>
+                                    <td>۸</td>
+                                    <td>۱۵</td>
+                                    <td><span class="status low">کمبود موجودی</span></td>
+                                    <td><button class="btn soft small">ثبت سفارش</button></td>
+                                </tr>
+                                <tr>
+                                    <td>ضد آفتاب SPF50 درمالیفت</td>
+                                    <td>DR-110</td>
+                                    <td>۰</td>
+                                    <td>۱۰</td>
+                                    <td><span class="status cancel">ناموجود</span></td>
+                                    <td><button class="btn soft small">ثبت سفارش</button></td>
+                                </tr>
+                                <tr>
+                                    <td>تونر پاک‌کننده</td>
+                                    <td>TN-088</td>
+                                    <td>۴</td>
+                                    <td>۱۲</td>
+                                    <td><span class="status low">کمبود موجودی</span></td>
+                                    <td><button class="btn soft small">ثبت سفارش</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            <section class="page" id="page-discounts">
+                <div class="table-title">
+                    <div>
+                        <h2>تخفیف‌ها و جشنواره‌ها</h2>
+                        <p>مدیریت کدهای تخفیف و کمپین‌های فروش</p>
+                    </div><button class="btn" onclick="openModal('discountModal')">＋ کد تخفیف جدید</button>
+                </div>
+                <div class="card panel">
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>عنوان</th>
+                                    <th>کد تخفیف</th>
+                                    <th>نوع</th>
+                                    <th>میزان</th>
+                                    <th>تاریخ پایان</th>
+                                    <th>وضعیت</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>تخفیف خرید اول</td>
+                                    <td><b>WELCOME15</b></td>
+                                    <td>درصدی</td>
+                                    <td>۱۵٪</td>
+                                    <td>۱۴۰۵/۰۹/۳۰</td>
+                                    <td><span class="status">فعال</span></td>
+                                </tr>
+                                <tr>
+                                    <td>جشنواره مراقبت پوست</td>
+                                    <td><b>SKIN20</b></td>
+                                    <td>درصدی</td>
+                                    <td>۲۰٪</td>
+                                    <td>۱۴۰۵/۰۹/۰۵</td>
+                                    <td><span class="status">فعال</span></td>
+                                </tr>
+                                <tr>
+                                    <td>ارسال رایگان</td>
+                                    <td><b>FREEPOST</b></td>
+                                    <td>ارسال</td>
+                                    <td>رایگان</td>
+                                    <td>۱۴۰۵/۰۸/۲۰</td>
+                                    <td><span class="status cancel">پایان‌یافته</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            <section class="page" id="page-reports">
+                <div class="table-title">
+                    <div>
+                        <h2>گزارش‌های فروش</h2>
+                        <p>نمای کلی عملکرد فروشگاه در بازه انتخابی</p>
+                    </div><select class="field">
+                        <option>ماه جاری</option>
+                        <option>هفته جاری</option>
+                        <option>سال جاری</option>
+                    </select>
+                </div>
+                <div class="report-cards">
+                    <div class="card report-card"><small>فروش ناخالص</small><strong>۸۴,۵۰۰,۰۰۰ تومان</strong></div>
+                    <div class="card report-card"><small>تعداد سفارش</small><strong>۳۲۸ سفارش</strong></div>
+                    <div class="card report-card"><small>میانگین ارزش سفارش</small><strong>۲۵۷,۶۰۰ تومان</strong></div>
+                </div>
+                <div class="grid2">
+                    <div class="card panel">
+                        <div class="panel-head">
+                            <h3>محصولات پرفروش</h3>
+                        </div>
+                        <div class="progress-list">
+                            <div>
+                                <div class="pr-top"><span>ضد آفتاب SPF50</span><b>۸۶٪</b></div>
+                                <div class="bar"><i style="width:86%"></i></div>
+                            </div>
+                            <div>
+                                <div class="pr-top"><span>سرم ویتامین C</span><b>۷۴٪</b></div>
+                                <div class="bar"><i style="width:74%"></i></div>
+                            </div>
+                            <div>
+                                <div class="pr-top"><span>ژل شستشو</span><b>۵۸٪</b></div>
+                                <div class="bar"><i style="width:58%"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card panel">
+                        <div class="panel-head">
+                            <h3>ترکیب فروش</h3>
+                        </div>
+                        <div class="progress-list">
+                            <div>
+                                <div class="pr-top"><span>مراقبت پوست</span><b>۴۲٪</b></div>
+                                <div class="bar"><i style="width:42%"></i></div>
+                            </div>
+                            <div>
+                                <div class="pr-top"><span>لوازم آرایشی</span><b>۳۱٪</b></div>
+                                <div class="bar"><i style="width:31%"></i></div>
+                            </div>
+                            <div>
+                                <div class="pr-top"><span>مراقبت مو</span><b>۱۸٪</b></div>
+                                <div class="bar"><i style="width:18%"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="page" id="page-settings">
+                <div class="table-title">
+                    <div>
+                        <h2>تنظیمات فروشگاه</h2>
+                        <p>اطلاعات پایه و راه‌های ارتباطی فروشگاه</p>
+                    </div><button class="btn"
+                        onclick="alert('تنظیمات نمونه ذخیره شد؛ اتصال دائمی نیازمند بک‌اند است.')">ذخیره
+                        تغییرات</button>
+                </div>
+                <div class="settings-grid">
+                    <div class="card panel">
+                        <div class="panel-head">
+                            <h3>اطلاعات فروشگاه</h3>
+                        </div>
+                        <div class="form-grid">
+                            <div class="form-group"><label>نام فروشگاه</label><input class="field" value="زیبایی سبز">
+                            </div>
+                            <div class="form-group"><label>شماره تماس</label><input class="field" value="۰۲۱-۱۲۳۴۵۶۷۸">
+                            </div>
+                            <div class="form-group"><label>ایمیل</label><input class="field" value="info@example.com">
+                            </div>
+                            <div class="form-group"><label>واحد پول</label><select class="field">
+                                    <option>تومان</option>
+                                    <option>ریال</option>
+                                </select></div>
+                            <div class="form-group" style="grid-column:1/-1"><label>نشانی فروشگاه</label><textarea
+                                    class="field" rows="3">تهران، خیابان نمونه، پلاک ۱۰</textarea></div>
+                        </div>
+                    </div>
+                    <div class="card panel">
+                        <div class="panel-head">
+                            <h3>تنظیمات سفارش و ارسال</h3>
+                        </div>
+                        <div class="form-grid">
+                            <div class="form-group"><label>حداقل مبلغ سفارش</label><input class="field"
+                                    value="۲۰۰,۰۰۰ تومان"></div>
+                            <div class="form-group"><label>هزینه ارسال پیش‌فرض</label><input class="field"
+                                    value="۵۰,۰۰۰ تومان"></div>
+                            <div class="form-group"><label>آستانه ارسال رایگان</label><input class="field"
+                                    value="۱,۰۰۰,۰۰۰ تومان"></div>
+                            <div class="form-group"><label>ایمیل اطلاع‌رسانی</label><input class="field"
+                                    value="orders@example.com"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="page" id="page-brands">
+                <div class="table-title">
+                    <div>
+                        <h2>مدیریت برندها</h2>
+                        <p>برندهای محصولات آرایشی و بهداشتی فروشگاه</p>
+                    </div><button class="btn" onclick="alert('فرم افزودن برند در نسخه متصل فعال می‌شود.')">＋ افزودن
+                        برند</button>
+                </div>
+                <div class="toolbar"><input class="field grow" placeholder="جستجوی برند..."
+                        oninput="filterRows('brandsTable',this.value)"><select class="field">
+                        <option>همه وضعیت‌ها</option>
+                        <option>فعال</option>
+                        <option>غیرفعال</option>
+                    </select></div>
+                <div class="card panel">
+                    <div class="table-wrap">
+                        <table id="brandsTable">
+                            <thead>
+                                <tr>
+                                    <th>نام برند</th>
+                                    <th>کشور سازنده</th>
+                                    <th>تعداد محصولات</th>
+                                    <th>وضعیت</th>
+                                    <th>عملیات</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>سینره</td>
+                                    <td>ایران</td>
+                                    <td>۴۸</td>
+                                    <td><span class="status">فعال</span></td>
+                                    <td><button class="btn soft small">ویرایش</button></td>
+                                </tr>
+                                <tr>
+                                    <td>درمالیفت</td>
+                                    <td>ایران</td>
+                                    <td>۳۶</td>
+                                    <td><span class="status">فعال</span></td>
+                                    <td><button class="btn soft small">ویرایش</button></td>
+                                </tr>
+                                <tr>
+                                    <td>لافارر</td>
+                                    <td>ایران</td>
+                                    <td>۲۷</td>
+                                    <td><span class="status">فعال</span></td>
+                                    <td><button class="btn soft small">ویرایش</button></td>
+                                </tr>
+                                <tr>
+                                    <td>لورآل</td>
+                                    <td>فرانسه</td>
+                                    <td>۵۲</td>
+                                    <td><span class="status pending">نیازمند بررسی</span></td>
+                                    <td><button class="btn soft small">ویرایش</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            <section class="page" id="page-suppliers">
+                <div class="table-title">
+                    <div>
+                        <h2>تأمین‌کنندگان</h2>
+                        <p>مدیریت طرف‌های تأمین کالا و اطلاعات تماس</p>
+                    </div><button class="btn" onclick="alert('فرم ثبت تأمین‌کننده در نسخه متصل فعال می‌شود.')">＋
+                        تأمین‌کننده جدید</button>
+                </div>
+                <div class="stats">
+                    <article class="card stat">
+                        <div class="stat-head">تأمین‌کنندگان فعال</div>
+                        <h3>۱۸</h3>
+                        <div class="trend">در حال همکاری</div>
+                    </article>
+                    <article class="card stat">
+                        <div class="stat-head">سفارش‌های خرید باز</div>
+                        <h3>۶</h3>
+                        <div class="trend">در انتظار دریافت</div>
+                    </article>
+                    <article class="card stat">
+                        <div class="stat-head">فاکتورهای پرداخت‌نشده</div>
+                        <h3>۳</h3>
+                        <div class="trend" style="color:var(--amber)">نیازمند پیگیری</div>
+                    </article>
+                    <article class="card stat">
+                        <div class="stat-head">مجموع خرید ماه</div>
+                        <h3>۱۲۸M</h3>
+                        <div class="trend">تومان</div>
+                    </article>
+                </div>
+                <div class="card panel">
+                    <div class="toolbar"><input class="field grow" placeholder="جستجوی تأمین‌کننده..."
+                            oninput="filterRows('suppliersTable',this.value)"></div>
+                    <div class="table-wrap">
+                        <table id="suppliersTable">
+                            <thead>
+                                <tr>
+                                    <th>نام تأمین‌کننده</th>
+                                    <th>نماینده</th>
+                                    <th>شماره تماس</th>
+                                    <th>گروه کالا</th>
+                                    <th>آخرین خرید</th>
+                                    <th>وضعیت</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>پخش بهداشتی آریا</td>
+                                    <td>رضا کریمی</td>
+                                    <td>۰۲۱-۴۴۴۴۰۰۰۰</td>
+                                    <td>مراقبت پوست</td>
+                                    <td>۱۴۰۵/۰۸/۲۶</td>
+                                    <td><span class="status">فعال</span></td>
+                                </tr>
+                                <tr>
+                                    <td>شرکت پخش زیبایی نوین</td>
+                                    <td>مینا احمدی</td>
+                                    <td>۰۲۱-۸۸۸۸۱۱۱۱</td>
+                                    <td>آرایشی</td>
+                                    <td>۱۴۰۵/۰۸/۲۳</td>
+                                    <td><span class="status">فعال</span></td>
+                                </tr>
+                                <tr>
+                                    <td>پخش سلامت گستر</td>
+                                    <td>علی رضایی</td>
+                                    <td>۰۲۱-۳۳۳۳۲۲۲۲</td>
+                                    <td>بهداشت فردی</td>
+                                    <td>۱۴۰۵/۰۸/۱۸</td>
+                                    <td><span class="status pending">تسویه‌حساب</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            <section class="page" id="page-reviews">
+                <div class="table-title">
+                    <div>
+                        <h2>نظرات و امتیازهای مشتریان</h2>
+                        <p>بررسی و انتشار بازخورد خریداران</p>
+                    </div><select class="field">
+                        <option>همه نظرات</option>
+                        <option>در انتظار تأیید</option>
+                        <option>منتشرشده</option>
+                    </select>
+                </div>
+                <div class="stats">
+                    <article class="card stat">
+                        <div class="stat-head">میانگین امتیاز</div>
+                        <h3>۴.۷ از ۵</h3>
+                        <div class="trend">بر اساس نظرات ثبت‌شده</div>
+                    </article>
+                    <article class="card stat">
+                        <div class="stat-head">در انتظار بررسی</div>
+                        <h3>۷</h3>
+                        <div class="trend" style="color:var(--amber)">نیازمند اقدام</div>
+                    </article>
+                </div>
+                <div class="card panel">
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>مشتری</th>
+                                    <th>محصول</th>
+                                    <th>امتیاز</th>
+                                    <th>نظر</th>
+                                    <th>تاریخ</th>
+                                    <th>وضعیت</th>
+                                    <th>عملیات</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>نگار احمدی</td>
+                                    <td>سرم ویتامین C</td>
+                                    <td>★★★★★</td>
+                                    <td>بافت سبک و جذب عالی</td>
+                                    <td>۱۴۰۵/۰۸/۲۸</td>
+                                    <td><span class="status pending">در انتظار</span></td>
+                                    <td><button class="btn soft small">تأیید</button></td>
+                                </tr>
+                                <tr>
+                                    <td>سارا محمدی</td>
+                                    <td>ضد آفتاب SPF50</td>
+                                    <td>★★★★☆</td>
+                                    <td>کیفیت خوب و بدون حس چربی</td>
+                                    <td>۱۴۰۵/۰۸/۲۷</td>
+                                    <td><span class="status">منتشرشده</span></td>
+                                    <td><button class="btn outline small">پاسخ</button></td>
+                                </tr>
+                                <tr>
+                                    <td>مریم حسینی</td>
+                                    <td>کرم آبرسان</td>
+                                    <td>★★★★★</td>
+                                    <td>برای پوست خشک مناسب بود</td>
+                                    <td>۱۴۰۵/۰۸/۲۶</td>
+                                    <td><span class="status pending">در انتظار</span></td>
+                                    <td><button class="btn soft small">تأیید</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            <section class="page" id="page-returns">
+                <div class="table-title">
+                    <div>
+                        <h2>درخواست‌های مرجوعی</h2>
+                        <p>رسیدگی به لغو، تعویض و بازگشت کالا</p>
+                    </div><select class="field">
+                        <option>همه درخواست‌ها</option>
+                        <option>در انتظار بررسی</option>
+                        <option>تأییدشده</option>
+                    </select>
+                </div>
+                <div class="stats">
+                    <article class="card stat">
+                        <div class="stat-head">درخواست‌های جدید</div>
+                        <h3>۵</h3>
+                        <div class="trend" style="color:var(--amber)">در انتظار بررسی</div>
+                    </article>
+                    <article class="card stat">
+                        <div class="stat-head">تأییدشده این ماه</div>
+                        <h3>۱۲</h3>
+                        <div class="trend">درخواست مرجوعی</div>
+                    </article>
+                    <article class="card stat">
+                        <div class="stat-head">مبلغ بازپرداخت</div>
+                        <h3>۸.۴M</h3>
+                        <div class="trend">تومان</div>
+                    </article>
+                </div>
+                <div class="card panel">
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>کد درخواست</th>
+                                    <th>شماره سفارش</th>
+                                    <th>مشتری</th>
+                                    <th>محصول</th>
+                                    <th>دلیل</th>
+                                    <th>تاریخ</th>
+                                    <th>وضعیت</th>
+                                    <th>اقدام</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>R-۱۰۲</td>
+                                    <td>#۱۲۸۱</td>
+                                    <td>الهام کریمی</td>
+                                    <td>کرم مرطوب‌کننده</td>
+                                    <td>آسیب بسته‌بندی</td>
+                                    <td>۱۴۰۵/۰۸/۲۸</td>
+                                    <td><span class="status pending">در انتظار</span></td>
+                                    <td><button class="btn soft small">بررسی</button></td>
+                                </tr>
+                                <tr>
+                                    <td>R-۱۰۱</td>
+                                    <td>#۱۲۷۴</td>
+                                    <td>سارا محمدی</td>
+                                    <td>رژ لب</td>
+                                    <td>مغایرت رنگ</td>
+                                    <td>۱۴۰۵/۰۸/۲۶</td>
+                                    <td><span class="status">تأییدشده</span></td>
+                                    <td><button class="btn outline small">جزئیات</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            <section class="page" id="page-shipping">
+                <div class="table-title">
+                    <div>
+                        <h2>روش‌های ارسال</h2>
+                        <p>مدیریت سرویس‌های حمل و هزینه ارسال سفارش‌ها</p>
+                    </div><button class="btn" onclick="alert('افزودن روش ارسال در نسخه متصل فعال می‌شود.')">＋ روش ارسال
+                        جدید</button>
+                </div>
+                <div class="category-grid">
+                    <div class="card panel">
+                        <div class="thumb">🚚</div>
+                        <h3>پست پیشتاز</h3>
+                        <p class="muted">هزینه پایه: ۵۵,۰۰۰ تومان</p><span class="status">فعال</span>
+                    </div>
+                    <div class="card panel">
+                        <div class="thumb">🏍</div>
+                        <h3>پیک شهری</h3>
+                        <p class="muted">هزینه پایه: ۴۰,۰۰۰ تومان</p><span class="status">فعال</span>
+                    </div>
+                    <div class="card panel">
+                        <div class="thumb">📦</div>
+                        <h3>تیپاکس</h3>
+                        <p class="muted">محاسبه بر اساس مقصد</p><span class="status">فعال</span>
+                    </div>
+                    <div class="card panel">
+                        <div class="thumb">🏬</div>
+                        <h3>تحویل حضوری</h3>
+                        <p class="muted">بدون هزینه ارسال</p><span class="status pending">غیرفعال</span>
+                    </div>
+                </div>
+                <div class="card panel" style="margin-top:15px">
+                    <h3>قوانین ارسال</h3>
+                    <div class="form-grid">
+                        <div class="form-group"><label>آستانه ارسال رایگان (تومان)</label><input class="field"
+                                value="۱,۰۰۰,۰۰۰"></div>
+                        <div class="form-group"><label>زمان آماده‌سازی سفارش</label><select class="field">
+                                <option>۱ تا ۲ روز کاری</option>
+                                <option>۲ تا ۳ روز کاری</option>
+                            </select></div>
+                    </div>
+                </div>
+            </section>
+            <section class="page" id="page-payments">
+                <div class="table-title">
+                    <div>
+                        <h2>درگاه‌های پرداخت</h2>
+                        <p>مدیریت روش‌های پرداخت و وضعیت تراکنش‌ها</p>
+                    </div><button class="btn" onclick="alert('اتصال درگاه نیازمند اطلاعات پذیرنده و بک‌اند امن است.')">＋
+                        افزودن درگاه</button>
+                </div>
+                <div class="category-grid">
+                    <div class="card panel">
+                        <div class="thumb">💳</div>
+                        <h3>پرداخت آنلاین</h3>
+                        <p class="muted">درگاه بانکی اصلی</p><span class="status">فعال</span>
+                    </div>
+                    <div class="card panel">
+                        <div class="thumb">🏦</div>
+                        <h3>کارت به کارت</h3>
+                        <p class="muted">نیازمند تأیید مدیر</p><span class="status pending">غیرفعال</span>
+                    </div>
+                    <div class="card panel">
+                        <div class="thumb">💵</div>
+                        <h3>پرداخت در محل</h3>
+                        <p class="muted">ویژه ارسال شهری</p><span class="status">فعال</span>
+                    </div>
+                </div>
+                <div class="card panel" style="margin-top:15px">
+                    <div class="panel-head">
+                        <h3>آخرین تراکنش‌ها</h3>
+                    </div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>شناسه تراکنش</th>
+                                    <th>سفارش</th>
+                                    <th>مبلغ</th>
+                                    <th>روش</th>
+                                    <th>تاریخ</th>
+                                    <th>وضعیت</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>TX-۹۸۲۱</td>
+                                    <td>#۱۲۸۴</td>
+                                    <td>۲,۴۵۰,۰۰۰</td>
+                                    <td>درگاه آنلاین</td>
+                                    <td>۱۴۰۵/۰۸/۲۸</td>
+                                    <td><span class="status">موفق</span></td>
+                                </tr>
+                                <tr>
+                                    <td>TX-۹۸۲۰</td>
+                                    <td>#۱۲۸۳</td>
+                                    <td>۱,۸۰۰,۰۰۰</td>
+                                    <td>درگاه آنلاین</td>
+                                    <td>۱۴۰۵/۰۸/۲۸</td>
+                                    <td><span class="status">موفق</span></td>
+                                </tr>
+                                <tr>
+                                    <td>TX-۹۸۱۹</td>
+                                    <td>#۱۲۸۲</td>
+                                    <td>۳,۲۰۰,۰۰۰</td>
+                                    <td>پرداخت در محل</td>
+                                    <td>۱۴۰۵/۰۸/۲۷</td>
+                                    <td><span class="status pending">در انتظار</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            <section class="page" id="page-content">
+                <div class="table-title">
+                    <div>
+                        <h2>مدیریت محتوای سایت</h2>
+                        <p>مدیریت بنرها، صفحات راهنما و محتوای فروشگاه</p>
+                    </div><button class="btn" onclick="alert('ویرایشگر محتوا در نسخه متصل فعال می‌شود.')">＋ محتوای
+                        جدید</button>
+                </div>
+                <div class="category-grid">
+                    <div class="card panel">
+                        <div class="thumb">🖼</div>
+                        <h3>بنر صفحه اصلی</h3>
+                        <p class="muted">جشنواره مراقبت از پوست</p><span class="status">منتشرشده</span>
+                    </div>
+                    <div class="card panel">
+                        <div class="thumb">📄</div>
+                        <h3>درباره ما</h3>
+                        <p class="muted">آخرین ویرایش: ۱۴۰۵/۰۸/۲۰</p><span class="status">منتشرشده</span>
+                    </div>
+                    <div class="card panel">
+                        <div class="thumb">❓</div>
+                        <h3>سؤالات متداول</h3>
+                        <p class="muted">۸ پرسش و پاسخ</p><span class="status">منتشرشده</span>
+                    </div>
+                    <div class="card panel">
+                        <div class="thumb">📃</div>
+                        <h3>قوانین و مقررات</h3>
+                        <p class="muted">آخرین ویرایش: ۱۴۰۵/۰۸/۱۵</p><span class="status">منتشرشده</span>
+                    </div>
+                </div>
+            </section>
+            <section class="page" id="page-staff">
+                <div class="table-title">
+                    <div>
+                        <h2>کاربران و سطح دسترسی</h2>
+                        <p>مدیریت اعضای تیم و نقش‌های پنل</p>
+                    </div><button class="btn" onclick="alert('دعوت کاربر جدید در نسخه متصل فعال می‌شود.')">＋ دعوت
+                        کاربر</button>
+                </div>
+                <div class="card panel">
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>نام کاربر</th>
+                                    <th>نام کاربری</th>
+                                    <th>نقش</th>
+                                    <th>دسترسی</th>
+                                    <th>آخرین ورود</th>
+                                    <th>وضعیت</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>مدیر فروشگاه</td>
+                                    <td>admin</td>
+                                    <td>مدیر کل</td>
+                                    <td>همه بخش‌ها</td>
+                                    <td>امروز، ۱۰:۲۴</td>
+                                    <td><span class="status">فعال</span></td>
+                                </tr>
+                                <tr>
+                                    <td>سارا رضایی</td>
+                                    <td>sara.orders</td>
+                                    <td>کارشناس سفارش</td>
+                                    <td>سفارش‌ها، مشتریان</td>
+                                    <td>امروز، ۰۹:۱۰</td>
+                                    <td><span class="status">فعال</span></td>
+                                </tr>
+                                <tr>
+                                    <td>مهدی کریمی</td>
+                                    <td>mehdi.stock</td>
+                                    <td>انباردار</td>
+                                    <td>محصولات، انبار</td>
+                                    <td>دیروز، ۱۶:۴۰</td>
+                                    <td><span class="status">فعال</span></td>
+                                </tr>
+                                <tr>
+                                    <td>نگین احمدی</td>
+                                    <td>negin.content</td>
+                                    <td>مدیر محتوا</td>
+                                    <td>محتوای سایت، نظرات</td>
+                                    <td>۱۴۰۵/۰۸/۲۶</td>
+                                    <td><span class="status pending">دعوت‌شده</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <section class="page" id="page-support">
+                <div class="table-title">
+                    <div>
+                        <h2>راهنما و پشتیبانی</h2>
+                        <p>دسترسی به راهنما و اطلاعات تماس پشتیبانی</p>
+                    </div>
+                </div>
+                <div class="card panel">
+                    <h3 style="font-size:13px">به مرکز پشتیبانی خوش آمدید</h3>
+                    <p class="muted" style="font-size:11px;line-height:2">این بخش برای ثبت درخواست پشتیبانی، مشاهده
+                        سوالات متداول و پیگیری مشکلات پنل در نظر گرفته شده است.</p><button class="btn"
+                        onclick="alert('برای ثبت تیکت باید پنل به سامانه پشتیبانی متصل شود.')">ثبت درخواست
+                        پشتیبانی</button>
+                </div>
+            </section>
+            

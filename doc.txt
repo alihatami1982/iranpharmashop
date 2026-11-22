@@ -294,4 +294,189 @@ $router->add('POST', 'admin/products/store', 'AdminController@store');
 </div>
 ```
 
-این فایل‌ها و تغییرات را در پروژه اعمال کن و بگو هر جا نیاز به بررسی روت یا تست فرم داشتی، چطور پیش رفت!
+
+
+
+برای ایجاد بخش **دسته‌بندی‌های محصولات (Categories)** در پنل ادمین و سایت، چون دقیقاً از همان الگوی معماری MVC که برای محصولات پیاده کردیم استفاده می‌کنیم، باید **۵ قدم اصلی** را طی کنید.
+
+بیایید این کار را قدم به قدم و به ساده‌ترین شکل ممکن جلو ببریم:
+
+---
+
+### قدم ۱: ساخت جدول دسته‌بندی‌ها در دیتابیس (phpMyAdmin)
+اول باید یک جدول برای دسته‌بندی‌ها در دیتابیس `iran` بسازید. 
+به phpMyAdmin بروید و یک جدول به نام `categories` با این ساختار بسازید:
+
+*   `id`: INT (Primary Key, Auto Increment)
+*   `name`: VARCHAR(255) (نام دسته‌بندی، مثل: "لوازم آرایشی", "مراقبت پوست")
+*   `slug`: VARCHAR(255) (برای URLهای زیبا، مثل: `skin-care`)
+*   `created_at`: TIMESTAMP (زمان ایجاد - اختیاری)
+
+---
+
+### قدم ۲: ساخت مدل دسته‌بندی (`app/models/Category.php`)
+کلاسی برای ارتباط با جدول دسته‌بندی‌ها در دیتابیس:
+
+```php
+<?php
+class Category {
+    private $db;
+
+    public function __construct() {
+        $this->db = Database::connect(); // فرض بر این است که کلاس دیتابیس دارید
+    }
+
+    // گرفتن تمام دسته‌بندی‌ها
+    public function getAll() {
+        $stmt = $this->db->prepare("SELECT * FROM categories ORDER BY id DESC");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    // ذخیره دسته‌بندی جدید
+    public function create($name, $slug) {
+        $stmt = $this->db->prepare("INSERT INTO categories (name, slug) VALUES (?, ?)");
+        return $stmt->execute([$name, $slug]);
+    }
+
+    // حذف دسته‌بندی
+    public function delete($id) {
+        $stmt = $this->db->prepare("DELETE FROM categories WHERE id = ?");
+        return $stmt->execute([$id]);
+    }
+}
+```
+
+---
+
+### قدم ۳: ساخت کنترلر دسته‌بندی‌ها (`app/controllers/Admin/CategoryController.php`)
+این کنترلر درخواست‌های مربوط به لیست کردن، افزودن و حذف دسته‌بندی را مدیریت می‌کند:
+
+```php
+<?php
+class CategoryController extends Controller {
+
+    // نمایش لیست دسته‌بندی‌ها
+    public function index() {
+        $categoryModel = new Category();
+        $categories = $categoryModel->getAll();
+
+        $this->render('admin/categories/index', [
+            'title' => 'مدیریت دسته‌بندی‌ها',
+            'categories' => $categories
+        ], 'admin/layouts/admin');
+    }
+
+    // پردازش فرم افزودن دسته‌بندی
+    public function store() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $name = trim($_POST['name']);
+            // ساخت slug ساده از روی نام (تبدیل به حروف کوچک و خط تیره)
+            $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $name)));
+
+            if (!empty($name)) {
+                $categoryModel = new Category();
+                $categoryModel->create($name, $slug);
+            }
+        }
+        // بازگشت به صفحه لیست دسته‌بندی‌ها
+        header('Location: ' . BASE_URL . '/admin/categories');
+        exit;
+    }
+
+    // حذف دسته‌بندی
+    public function delete($id) {
+        $categoryModel = new Category();
+        $categoryModel->delete($id);
+        
+        header('Location: ' . BASE_URL . '/admin/categories');
+        exit;
+    }
+}
+```
+
+---
+
+### قدم ۴: ساخت ویوی نمایش و افزودن دسته‌بندی (`views/admin/categories/index.php`)
+برای اینکه هم فرم افزودن و هم جدول لیست را در یک صفحه داشته باشید (که مدیریت آن برای ادمین راحت‌تر است):
+
+```php
+<div class="container-fluid mt-4">
+    <div class="row">
+        <!-- ستون فرم افزودن دسته‌بندی -->
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">افزودن دسته‌بندی جدید</div>
+                <div class="card-body">
+                    <form action="<?= BASE_URL; ?>/admin/categories/store" method="POST">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">نام دسته‌بندی</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                        </div>
+                        <button type="submit" class="btn btn-success w-100">ذخیره دسته‌بندی</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- ستون جدول لیست دسته‌بندی‌ها -->
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-secondary text-white">لیست دسته‌بندی‌ها</div>
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>نام دسته‌بندی</th>
+                                <th>اسلاگ (Slug)</th>
+                                <th>عملیات</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if (!empty($categories)): ?>
+                                <?php foreach ($categories as $cat): ?>
+                                    <tr>
+                                        <td><?= $cat['id']; ?></td>
+                                        <td><?= $cat['name']; ?></td>
+                                        <td><code><?= $cat['slug']; ?></code></td>
+                                        <td>
+                                            <a href="<?= BASE_URL; ?>/admin/categories/delete/<?= $cat['id']; ?>" 
+                                               class="btn btn-sm btn-danger" 
+                                               onclick="return confirm('آیا مطمئن هستید؟')">حذف</a>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <tr>
+                                    <td colspan="4" class="text-center">هیچ دسته‌بندی‌ای یافت نشد.</td>
+                                </tr>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+```
+
+---
+
+### قدم ۵: ثبت روت‌ها (Routes) در `public/index.php`
+در نهایت باید مسیرهای جدید را به روتر پروژه معرفی کنید تا وقتی ادمین آدرس را زد، به کنترلر دسته‌بندی هدایت شود:
+
+```php
+// روت‌های مدیریت دسته‌بندی‌ها
+$router->get('admin/categories', 'CategoryController@index');
+$router->post('admin/categories/store', 'CategoryController@store');
+$router->get('admin/categories/delete/{id}', 'CategoryController@delete');
+```
+*(توجه: اگر سیستم روتینگ شما به صورت آرایه‌ای یا ساختار دیگری است، دقیقاً مطابق همان ساختار پروژه خودتان روت‌ها را اضافه کنید).*
+
+---
+
+### ارتباط محصولات با دسته‌بندی‌ها (گام بعدی):
+وقتی این بخش را پیاده کردید، برای اینکه هر محصول بفهمد متعلق به چه دسته‌بندی‌ای است، فقط کافی است یک ستون به نام `category_id` به جدول `products` در دیتابیس اضافه کنید و در فرم افزودن محصول، یک `<select>` از لیست دسته‌بندی‌ها بگذارید.
+
+این ساختار را پیاده کنید؛ اگر در هر مرحله (مثل ساخت مدل یا روتینگ) سوالی داشتید بفرمایید تا دقیق‌تر بررسی کنیم.

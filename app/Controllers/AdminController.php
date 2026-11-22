@@ -13,20 +13,15 @@ class AdminController extends Controller {
         $productModel = new Product();
         $products = $productModel->getAll();
 
+        // اضافه کردن پارامتر سوم برای فراخوانی هدر و فوتر ادمین
         $this->render('admin/products/index', [
             'title' => 'مدیریت محصولات - پنل ادمین',
             'products' => $products
-        ]);
+        ], 'admin/layouts/admin'); // <--- این بخش را اضافه کنید
     }
 
+
     // نمایش فرم افزودن محصول
-    // public function create() {
-    //     $this->render('admin/products/create', [
-    //         'title' => 'افزودن محصول جدید'
-    //     ]);
-    // }
-
-
     public function create() {
         $data = ['title' => 'افزودن محصول'];
         // می‌گوییم از لایوت admin استفاده کن
