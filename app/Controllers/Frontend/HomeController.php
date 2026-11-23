@@ -24,7 +24,6 @@ class HomeController extends Controller {
         ];
 
         // رندر کردن با لایوت فرانت‌اند
-        // $this->render('frontend/home/index', $data, 'frontend/layouts/header', 'frontend/layouts/footer');
         $this->render('frontend/home/index', $data, 'frontend/layouts/main');
 
     }

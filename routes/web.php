@@ -5,6 +5,12 @@
 $router->get('/', 'App\Controllers\Frontend\HomeController@index');
 $router->get('/products', 'App\Controllers\Frontend\ProductController@index');
 
+// مسیر نمایش صفحه تماس
+$router->get('/contact', 'App\Controllers\Frontend\ContactController@index');
+// مسیر پردازش فرم (حتماً POST باشد)
+$router->post('/contact/send', 'App\Controllers\Frontend\ContactController@send');
+
+
 // روت‌های بخش مدیریت/مدیریت دسته ها (Admin/categories)
 $router->get('/admin/categories', 'App\Controllers\Admin\CategoryController@index');
 $router->get('/admin/categories/create', 'App\Controllers\Admin\CategoryController@create'); 

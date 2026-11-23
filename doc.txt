@@ -8,131 +8,22 @@
 ### ۱. کلاس دیتابیس (`app/Core/Database.php`)
 این کلاس از الگوی **Singleton** استفاده می‌کند تا در هر بار لود شدن صفحه، فقط یک بار به دیتابیس متصل شویم (برای بهینه‌سازی سرعت).
 
-```php
-<?php
-// app/Core/Database.php
 
-namespace App\Core;
-
-use PDO;
-use PDOException;
-
-class Database {
-    private static $instance = null;
-    private $connection;
-
-    private function __construct() {
-        $config = require __DIR__ . '/../../config/config.php';
-        try {
-            $dsn = "mysql:host={$config['db_host']};dbname={$config['db_name']};charset={$config['db_charset']}";
-            $this->connection = new PDO($dsn, $config['db_user'], $config['db_pass'], [
-                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-                PDO::ATTR_EMULATE_PREPARES => false,
-            ]);
-        } catch (PDOException $e) {
-            die("خطا در اتصال به دیتابیس: " . $e->getMessage());
-        }
-    }
-
-    public static function getInstance() {
-        if (self::$instance === null) {
-            self::$instance = new self();
-        }
-        return self::$instance->connection;
-    }
-}
-```
-
----
 
 ### ۲. کلاس کنترلر پایه (`app/Core/Controller.php`)
 همه کنترلرهای تو (مثل `ProductController` یا `AdminController`) از این کلاس ارث‌بری می‌کنند تا بتوانند فایل‌های `view` را فراخوانی کنند.
 
-```php
-<?php
-// app/Core/Controller.php
 
-namespace App\Core;
-
-class Controller {
-    // متدی برای فراخوانی فایل‌های ویو (View)
-    protected function render($view, $data = []) {
-        // استخراج آرایه دیتا برای اینکه در فایل HTML مستقیم استفاده کنی
-        extract($data);
-        
-        // مسیر ویو را مشخص می‌کنیم
-        $viewPath = __DIR__ . '/../../views/' . $view . '.php';
-
-        if (file_exists($viewPath)) {
-            require_once $viewPath;
-        } else {
-            die("خطا: فایل ویو یافت نشد: " . $view);
-        }
-    }
-}
-```
-
----
 
 ### ۳. سیستم مسیریابی ساده (`app/Core/Router.php`)
 در سیستم‌های حرفه‌ای، روتینگ پیچیده است، اما برای شروع، ما یک روت ساده می‌سازیم که آدرس را از URL بگیرد و به کنترلر مربوطه بفرستد.
-
-```php
-<?php
-// app/Core/Router.php
-
-namespace App\Core;
-
-class Router {
-    protected $routes = [];
-
-    public function add($route, $controller, $method) {
-        $this->routes[$route] = [
-            'controller' => $controller,
-            'method' => $method
-        ];
-    }
-
-    public function dispatch($url) {
-        $url = trim($url, '/');
-        if (empty($url)) $url = 'home';
-
-        if (array_key_exists($url, $this->routes)) {
-            $controllerName = $this->routes[$url]['controller'];
-            $methodName = $this->routes[$url]['method'];
-
-            // ساختن نمونه از کنترلر
-            $controller = new $controllerName();
-            $controller->$methodName();
-        } else {
-            echo "<h1>404 - صفحه یافت نشد</h1>";
-        }
-    }
-}
-```
-
 ---
 
 ### ۴. فایل ورود اصلی (`public/index.php`)
 حالا همه این‌ها را در نقطه شروع به هم متصل می‌کنیم.
-
-```php
-<?php
 // public/index.php
 
-// ۱. فعال‌سازی Autoloading برای کلاس‌های ما
-spl_autoload_register(function ($class) {
-    $prefix = 'App\\';
-    $base_dir = __DIR__ . '/../app/';
-    $len = strlen($prefix);
-    if (strncmp($prefix, $class, $len) !== 0) return;
-    $relative_class = substr($class, $len);
-    $file = $base_dir . str_replace('\\', '/', $relative_class) . '.php';
-    if (file_exists($file)) require $file;
-});
 
-use App\Core\Router;
 
 // ۲. شروع روتینگ
 $router = new Router();
@@ -153,13 +44,7 @@ $router->dispatch($requestUri);
 ---
 
 ### گام بعدی چیست؟
-تا اینجا "اسکلت" سایت ساخته شد. برای اینکه مطمئن شویم کار می‌کند، باید:
-1.  یک کلاس `HomeController` ساده بسازیم.
-2.  یک فایل ویو در `views/home.php` ایجاد کنیم.
 
-**آیا می‌خواهی این دو مورد را با هم بسازیم تا اولین صفحه سایت "ایران" را روی مرورگر ببینی؟**
-
-عالیه! انتخاب بسیار خوبی بود. برای ساخت **بخش مدیریت (Admin Panel)**، گام‌به‌گام به این شکل جلو می‌رویم:
 
 1. **طراحی ساختار ادمین:** باید یک کنترلر جدید برای ادمین (`AdminController`) بسازیم تا مدیریت محصولات (افزودن، ویرایش، حذف) را کنترل کند.
 2. **ساخت فرم افزودن محصول**: یک فرم HTML در پوشه `views/admin/` ایجاد می‌کنیم که مدیر بتواند نام، قیمت، دسته‌بندی و توضیحات محصول را وارد کند.
@@ -170,132 +55,20 @@ $router->dispatch($requestUri);
 ### گام اول: افزودن متد `store` به مدل `Product`
 باید به مدل `Product` در مسیر `app/Models/Product.php` قابلیت ذخیره محصول جدید را اضافه کنیم. کد زیر را به کلاس `Product` اضافه کن:
 
-```php
-    // متدی برای درج محصول جدید در دیتابیس
-    public function create($data) {
-        $stmt = $this->db->prepare("INSERT INTO products (name, description, price, image, category) VALUES (:name, :description, :price, :image, :category)");
-        return $stmt->execute([
-            'name' => $data['name'],
-            'description' => $data['description'],
-            'price' => $data['price'],
-            'image' => $data['image'] ?? 'default.jpg', // اگر عکسی نبود پیش‌فرض بگذارد
-            'category' => $data['category']
-        ]);
-    }
-```
 
 ---
 
 ### گام دوم: ساخت `AdminController`
 یک فایل جدید به نام `AdminController.php` در پوشه `app/Controllers/` بساز و کدهای زیر را درون آن قرار بده:
 
-```php
-<?php
-// app/Controllers/AdminController.php
 
-namespace App\Controllers;
-
-use App\Core\Controller;
-use App\Models\Product;
-
-class AdminController extends Controller {
-
-    // نمایش لیست محصولات در پنل ادمین
-    public function index() {
-        $productModel = new Product();
-        $products = $productModel->getAll();
-
-        $this->render('admin/products/index', [
-            'title' => 'مدیریت محصولات - پنل ادمین',
-            'products' => $products
-        ]);
-    }
-
-    // نمایش فرم افزودن محصول
-    public function create() {
-        $this->render('admin/products/create', [
-            'title' => 'افزودن محصول جدید'
-        ]);
-    }
-
-    // ذخیره محصول ارسالی از فرم
-    public function store() {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $data = [
-                'name' => $_POST['name'] ?? '',
-                'description' => $_POST['description'] ?? '',
-                'price' => $_POST['price'] ?? 0,
-                'category' => $_POST['category'] ?? '',
-                'image' => 'default.jpg' // موقتاً عکس پیش‌فرض
-            ];
-
-            $productModel = new Product();
-            $productModel->create($data);
-
-            // بعد از ذخیره، برگرد به لیست محصولات ادمین
-            header('Location: ' . BASE_URL . '/admin/products');
-            exit;
-        }
-    }
-}
-```
-*(نکته: حواست باشد اگر ثابت `BASE_URL` را در تنظیمات پروژه داری استفاده می‌کنی، مسیردهی‌ها بر اساس آن انجام می‌شود، یا می‌توانی روت نسبی بدهی).*
-
----
 
 ### گام سوم: تنظیم روت‌ها در `public/index.php`
 حالا باید مسیرهای (Routes) ادمین را هم به `public/index.php` اضافه کنیم تا درخواست‌ها به `AdminController` هدایت شوند. روت‌های زیر را اضافه کن:
 
-```php
-// روت‌های بخش ادمین
-$router->add('GET', 'admin/products', 'AdminController@index');
-$router->add('GET', 'admin/products/create', 'AdminController@create');
-$router->add('POST', 'admin/products/store', 'AdminController@store');
-```
-
----
 
 ### گام چهارم: ساخت ویوی فرم افزودن محصول (`views/admin/products/create.php`)
 یک پوشه به نام `admin` و درون آن پوشه `products` بساز، و فایل `create.php` را با این کد ایجاد کن:
-
-```php
-<!-- views/admin/products/create.php -->
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card shadow">
-                <div class="card-header bg-primary text-white">
-                    <h4 class="mb-0">افزودن محصول جدید</h4>
-                </div>
-                <div class="card-body">
-                    <form action="<?php echo BASE_URL; ?>/admin/products/store" method="POST">
-                        <div class="mb-3">
-                            <label for="name" class="form-label">نام محصول</label>
-                            <input type="text" class="form-control" id="name" name="name" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="category" class="form-label">دسته‌بندی</label>
-                            <input type="text" class="form-control" id="category" name="category">
-                        </div>
-                        <div class="mb-3">
-                            <label for="price" class="form-label">قیمت (تومان)</label>
-                            <input type="number" class="form-control" id="price" name="price" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="description" class="form-label">توضیحات</label>
-                            <textarea class="form-control" id="description" name="description" rows="4"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-success w-100">ذخیره محصول</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-```
-
-
-
 
 برای ایجاد بخش **دسته‌بندی‌های محصولات (Categories)** در پنل ادمین و سایت، چون دقیقاً از همان الگوی معماری MVC که برای محصولات پیاده کردیم استفاده می‌کنیم، باید **۵ قدم اصلی** را طی کنید.
 
@@ -307,176 +80,138 @@ $router->add('POST', 'admin/products/store', 'AdminController@store');
 اول باید یک جدول برای دسته‌بندی‌ها در دیتابیس `iran` بسازید. 
 به phpMyAdmin بروید و یک جدول به نام `categories` با این ساختار بسازید:
 
-*   `id`: INT (Primary Key, Auto Increment)
-*   `name`: VARCHAR(255) (نام دسته‌بندی، مثل: "لوازم آرایشی", "مراقبت پوست")
-*   `slug`: VARCHAR(255) (برای URLهای زیبا، مثل: `skin-care`)
-*   `created_at`: TIMESTAMP (زمان ایجاد - اختیاری)
-
----
 
 ### قدم ۲: ساخت مدل دسته‌بندی (`app/models/Category.php`)
 کلاسی برای ارتباط با جدول دسته‌بندی‌ها در دیتابیس:
 
-```php
-<?php
-class Category {
-    private $db;
-
-    public function __construct() {
-        $this->db = Database::connect(); // فرض بر این است که کلاس دیتابیس دارید
-    }
-
-    // گرفتن تمام دسته‌بندی‌ها
-    public function getAll() {
-        $stmt = $this->db->prepare("SELECT * FROM categories ORDER BY id DESC");
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    // ذخیره دسته‌بندی جدید
-    public function create($name, $slug) {
-        $stmt = $this->db->prepare("INSERT INTO categories (name, slug) VALUES (?, ?)");
-        return $stmt->execute([$name, $slug]);
-    }
-
-    // حذف دسته‌بندی
-    public function delete($id) {
-        $stmt = $this->db->prepare("DELETE FROM categories WHERE id = ?");
-        return $stmt->execute([$id]);
-    }
-}
-```
-
----
 
 ### قدم ۳: ساخت کنترلر دسته‌بندی‌ها (`app/controllers/Admin/CategoryController.php`)
 این کنترلر درخواست‌های مربوط به لیست کردن، افزودن و حذف دسته‌بندی را مدیریت می‌کند:
 
-```php
-<?php
-class CategoryController extends Controller {
-
-    // نمایش لیست دسته‌بندی‌ها
-    public function index() {
-        $categoryModel = new Category();
-        $categories = $categoryModel->getAll();
-
-        $this->render('admin/categories/index', [
-            'title' => 'مدیریت دسته‌بندی‌ها',
-            'categories' => $categories
-        ], 'admin/layouts/admin');
-    }
-
-    // پردازش فرم افزودن دسته‌بندی
-    public function store() {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $name = trim($_POST['name']);
-            // ساخت slug ساده از روی نام (تبدیل به حروف کوچک و خط تیره)
-            $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $name)));
-
-            if (!empty($name)) {
-                $categoryModel = new Category();
-                $categoryModel->create($name, $slug);
-            }
-        }
-        // بازگشت به صفحه لیست دسته‌بندی‌ها
-        header('Location: ' . BASE_URL . '/admin/categories');
-        exit;
-    }
-
-    // حذف دسته‌بندی
-    public function delete($id) {
-        $categoryModel = new Category();
-        $categoryModel->delete($id);
-        
-        header('Location: ' . BASE_URL . '/admin/categories');
-        exit;
-    }
-}
-```
-
----
 
 ### قدم ۴: ساخت ویوی نمایش و افزودن دسته‌بندی (`views/admin/categories/index.php`)
 برای اینکه هم فرم افزودن و هم جدول لیست را در یک صفحه داشته باشید (که مدیریت آن برای ادمین راحت‌تر است):
-
-```php
-<div class="container-fluid mt-4">
-    <div class="row">
-        <!-- ستون فرم افزودن دسته‌بندی -->
-        <div class="col-md-4">
-            <div class="card shadow-sm">
-                <div class="card-header bg-primary text-white">افزودن دسته‌بندی جدید</div>
-                <div class="card-body">
-                    <form action="<?= BASE_URL; ?>/admin/categories/store" method="POST">
-                        <div class="mb-3">
-                            <label for="name" class="form-label">نام دسته‌بندی</label>
-                            <input type="text" class="form-control" id="name" name="name" required>
-                        </div>
-                        <button type="submit" class="btn btn-success w-100">ذخیره دسته‌بندی</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-        <!-- ستون جدول لیست دسته‌بندی‌ها -->
-        <div class="col-md-8">
-            <div class="card shadow-sm">
-                <div class="card-header bg-secondary text-white">لیست دسته‌بندی‌ها</div>
-                <div class="card-body">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>نام دسته‌بندی</th>
-                                <th>اسلاگ (Slug)</th>
-                                <th>عملیات</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php if (!empty($categories)): ?>
-                                <?php foreach ($categories as $cat): ?>
-                                    <tr>
-                                        <td><?= $cat['id']; ?></td>
-                                        <td><?= $cat['name']; ?></td>
-                                        <td><code><?= $cat['slug']; ?></code></td>
-                                        <td>
-                                            <a href="<?= BASE_URL; ?>/admin/categories/delete/<?= $cat['id']; ?>" 
-                                               class="btn btn-sm btn-danger" 
-                                               onclick="return confirm('آیا مطمئن هستید؟')">حذف</a>
-                                        </td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            <?php else: ?>
-                                <tr>
-                                    <td colspan="4" class="text-center">هیچ دسته‌بندی‌ای یافت نشد.</td>
-                                </tr>
-                            <?php endif; ?>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-```
-
 ---
 
 ### قدم ۵: ثبت روت‌ها (Routes) در `public/index.php`
 در نهایت باید مسیرهای جدید را به روتر پروژه معرفی کنید تا وقتی ادمین آدرس را زد، به کنترلر دسته‌بندی هدایت شود:
 
-```php
-// روت‌های مدیریت دسته‌بندی‌ها
-$router->get('admin/categories', 'CategoryController@index');
-$router->post('admin/categories/store', 'CategoryController@store');
-$router->get('admin/categories/delete/{id}', 'CategoryController@delete');
-```
-*(توجه: اگر سیستم روتینگ شما به صورت آرایه‌ای یا ساختار دیگری است، دقیقاً مطابق همان ساختار پروژه خودتان روت‌ها را اضافه کنید).*
 
----
 
 ### ارتباط محصولات با دسته‌بندی‌ها (گام بعدی):
 وقتی این بخش را پیاده کردید، برای اینکه هر محصول بفهمد متعلق به چه دسته‌بندی‌ای است، فقط کافی است یک ستون به نام `category_id` به جدول `products` در دیتابیس اضافه کنید و در فرم افزودن محصول، یک `<select>` از لیست دسته‌بندی‌ها بگذارید.
 
-این ساختار را پیاده کنید؛ اگر در هر مرحله (مثل ساخت مدل یا روتینگ) سوالی داشتید بفرمایید تا دقیق‌تر بررسی کنیم.
+
+
+توی این مسیر که با هم اومدیم، حواست به نکات امنیتی هم بود یا نه؟
+بله، از آنجایی که داریم یک سیستم از صفر (Custom MVC) با استانداردهای Senior می‌سازیم، رعایت نکات امنیتی از همان ابتدا بسیار حیاتی است. تا اینجای کار چند لایه امنیتی مهم را پیاده‌سازی کردیم:
+
+1. **جلوگیری از SQL Injection با PDO Prepared Statements:**
+   در تمام کدهایی که برای ذخیره یا خواندن اطلاعات از دیتابیس (مثل دسته‌ها و محصولات) نوشتیم، از کوئری‌های آماده (`prepare` و `execute`) همراه با Bind کردن متغیرها استفاده کردیم و هیچ‌وقت داده‌های مستقیم کاربر را در قالب رشته به دیتابیس نچسباندیم. این کار جلوی حملات تزریق SQL را به طور کامل می‌گیرد.
+
+2. **الگوی Singleton برای اتصال به دیتابیس:**
+   در کلاس `Database` از الگوی Singleton استفاده کردیم که مانع از ایجاد اتصال‌های متعدد و بی‌رویه به پایگاه داده در هر درخواست می‌شود و منابع سرور را محافظت می‌کند.
+
+3. **کنترل دسترسی و Namespaceها (Encapsulation):**
+   با استفاده از ساختار PSR-4 و کنترلرهای تفکیک‌شده (`Admin` و `Frontend`)، ساختار پوشه‌ها و فایل‌ها به گونه‌ای است که دسترسی غیرمجاز به فایل‌های حساس سیستمی (مثل کدهای دیتابیس یا هسته روتر) از طریق آدرس‌دهی مستقیم مرورگر مسدود شده است (چون نقطه ورود فقط `public/index.php` است).
+
+---
+
+### اما برای مراحل بعدی و تبدیل این پروژه به یک فروشگاه کاملاً ایمن (Production-ready)، حتماً باید این موارد امنیتی را هم به مرور اضافه کنیم:
+
+1. **جلوگیری از حملات XSS (Cross-Site Scripting):**
+   هنگامی که کاربر نام محصول یا دسته‌بندی را وارد می‌کند (که ممکن است شامل کدهای مخرب جاوااسکریپت باشد)، هنگام نمایش آن‌ها در ویوها باید حتماً از تابع `htmlspecialchars()` استفاده کنیم تا کدهای HTML/JS به صورت متن ساده چاپ شوند نه کد قابل اجرا.
+   *مثال:* `<?= htmlspecialchars($product['name'], ENT_QUOTES, 'UTF-8') ?>`
+
+2. **مدیریت نشست‌ها (Session Security) و احراز هویت ادمین:**
+   برای بخش مدیریت (Admin)، باید سیستم لاگین بسازیم و بررسی کنیم که آیا کاربر واقعاً ادمین است یا خیر؛ وگرنه هر کسی می‌تواند به آدرس‌های `/admin/...` دسترسی پیدا کند.
+
+3. **اعتبارسنجی (Validation) و پاکسازی (Sanitization) ورودی‌ها:**
+   پیش از درج اطلاعات در دیتابیس، باید نوع داده‌ها (مثلاً چک کردن اینکه قیمت حتماً عدد صحیح است یا اسلاگ تکراری نیست) را به دقت اعتبارسنجی کنیم.
+
+4. **مدیریت خطاهای سیستم (Error Handling):**
+   در محیط Production نباید جزئیات خطاها و مسیرهای فایل‌ها (`Fatal error in ...`) به کاربر نمایش داده شود، بلکه باید خطاهای سیستم لاگ شوند و یک صفحه خطای زیبا (مثل 404 یا 500) به کاربر نشان داده شود.
+
+پروژه شما تا اینجا از نظر معماری و پایه‌های امنیتیِ دیتابیس بسیار استاندارد جلو رفته است. هر زمان که خواستید بخش بعدی (مثل سیستم لاگین ادمین یا سبد خرید) را پیاده کنیم، بفرمایید تا با رعایت همین نکات امنیتی پیش برویم!
+
+
+
+
+
+
+`#204D26`
+رنگ اصلی سبز تیره 
+- پس‌زمینه روشن و کارت‌های ساده
+- فونت فارسی وزیرمتن
+- طراحی راست‌چین و واکنش‌گرا
+- دسته‌بندی محصولات آرایشی، مراقبت پوست، مو، عطر، بهداشت شخصی و سایر گروه‌ها
+
+من صفحات جدید را بر اساس همین قالب می‌سازم؛ نه با یک قالب ظاهری متفاوت. نام، رنگ‌ها، سبک کارت محصولات، سربرگ و پابرگ سبزکالا حفظ می‌شوند.
+
+نسخه چندصفحه‌ای آماده شد
+
+### **صفحات فروشگاه سبزکالا**
+
+در مجموع ۲۳ صفحه PHP با ساختار مشترک طراحی شده است.
+
+## **صفحات فروشگاه**
+
+صفحه اصلی
+
+فهرست محصولات
+
+دسته‌بندی‌ها
+
+جزئیات محصول
+
+جستجوی محصولات
+
+سبد خرید
+
+تکمیل سفارش
+
+علاقه‌مندی‌ها
+
+ورود و ثبت‌نام
+
+حساب کاربری
+
+سفارش‌های من
+
+برندها و تخفیف‌ها
+
+مجله زیبایی
+
+صفحه مقاله
+
+درباره ما
+
+تماس با ما
+
+سؤالات متداول
+
+روش ارسال
+
+بازگشت کالا
+
+حریم خصوصی
+
+قوانین فروشگاه
+
+**ویژگی‌های فنی**
+
+- حفظ رنگ و هویت بصری قالب اصلی
+- طراحی کاملاً راست‌چین
+- واکنش‌گرا برای موبایل و تبلت
+- هدر و فوتر مشترک
+- سبد خرید با PHP Session
+- افزودن و حذف علاقه‌مندی‌ها
+- لینک‌دهی بین صفحات
+- کدنویسی PHP و Bootstrap 5.3
+
+### **دانلود پروژه کامل**
+
+**sabzkala-complete-storefront.zip**
+
+پروژه کامل شامل ۳۰ فایل و ساختار پوشه‌ها
+
