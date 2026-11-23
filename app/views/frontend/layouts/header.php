@@ -27,8 +27,8 @@ function toman($price) {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>سبزکالا | فروشگاه آرایشی و بهداشتی</title>
-    <meta name="description" content="خرید محصولات آرایشی، بهداشتی و مراقبت پوست و مو از سبزکالا">
+    <title>ایران | فروشگاه آرایشی و بهداشتی</title>
+    <meta name="description" content="خرید محصولات آرایشی، بهداشتی و مراقبت پوست و مو از ایران">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -54,7 +54,7 @@ function toman($price) {
 
                 <a class="brand" href="#">
                     <span class="brand-mark"><i class="bi bi-leaf-fill"></i></span>
-                    <span><strong>سبزکالا</strong><small>زیبایی، حق شماست</small></span>
+                    <span><strong>ایران</strong><small>زیبایی، حق شماست</small></span>
                 </a>
 
                 <form class="search-box d-none d-md-flex flex-grow-1" action="#" method="get">
@@ -89,7 +89,7 @@ function toman($price) {
     <!-- منوی موبایل -->
     <div class="offcanvas offcanvas-end" tabindex="-1" id="mobileMenu">
         <div class="offcanvas-header">
-            <h5 class="offcanvas-title text-green fw-bold">سبزکالا</h5>
+            <h5 class="offcanvas-title text-green fw-bold">ایران</h5>
             <button type="button" class="btn-close ms-0" data-bs-dismiss="offcanvas" aria-label="بستن"></button>
         </div>
         <div class="offcanvas-body d-flex flex-column gap-3">
